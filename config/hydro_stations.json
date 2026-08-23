@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "api_base": "https://api.hrfco.go.kr",
+  "freshness_minutes": 30,
+  "history_hours": 2,
+  "primary_river": "미호강",
+  "stations": [
+    {
+      "code": "3011665",
+      "expected_name": "청주시(미호강교)",
+      "role": "upstream_primary",
+      "reference_water_level_m": 1.94
+    },
+    {
+      "code": "3011685",
+      "expected_name": "세종시(미호교)",
+      "role": "downstream_secondary",
+      "reference_water_level_m": 0.65
+    }
+  ]
+}

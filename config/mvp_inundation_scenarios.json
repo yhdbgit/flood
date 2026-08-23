@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "mode": "mvp_heuristic_playback",
+  "accuracy": "demo_not_hydraulic_model",
+  "description": "Distance-to-Miho-centreline and DEM-elevation screening for Blender MVP visualization.",
+  "grid_cell_m": 40.0,
+  "field_sample_grid": 30,
+  "frames": {
+    "normal": 1,
+    "attention": 30,
+    "warning": 65,
+    "serious": 100,
+    "focus": 120
+  },
+  "scenarios": [
+    {
+      "code": "attention",
+      "label": "관심",
+      "max_distance_to_miho_m": 220.0,
+      "max_dem_elevation_m": 25.0,
+      "display_max_depth_m": 0.1,
+      "colour": [0.02, 0.48, 1.0],
+      "alpha": 0.42
+    },
+    {
+      "code": "warning",
+      "label": "경계",
+      "max_distance_to_miho_m": 470.0,
+      "max_dem_elevation_m": 29.0,
+      "display_max_depth_m": 0.35,
+      "colour": [0.01, 0.27, 0.95],
+      "alpha": 0.52
+    },
+    {
+      "code": "serious",
+      "label": "심각",
+      "max_distance_to_miho_m": 650.0,
+      "max_dem_elevation_m": 33.0,
+      "display_max_depth_m": 0.8,
+      "colour": [0.005, 0.12, 0.72],
+      "alpha": 0.62
+    }
+  ],
+  "limitations": [
+    "The polygons are generated for an MVP visual demonstration and are not official flood-risk-map polygons.",
+    "The display depth is a scenario parameter, not a hydraulic-model result.",
+    "HRFCO observations are retained as context only and do not generate these polygons directly."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "status": "ok",
+  "missing_required_objects": [],
+  "zone_count": 10,
+  "waterway_count": 2,
+  "station_count": 2,
+  "label_count": 5,
+  "active_camera": "Camera_Gangnae_Hydro_V2",
+  "terrain_present": true,
+  "api_key_markers": [],
+  "zone_names": [
+    "Zone_궁현천",
+    "Zone_다락천",
+    "Zone_당산천",
+    "Zone_도장골천",
+    "Zone_미호강",
+    "Zone_부량천",
+    "Zone_상발천",
+    "Zone_월곡천",
+    "Zone_탑연천",
+    "Zone_태성천"
+  ],
+  "water_names": [
+    "Water_미호강",
+    "Water_태성천"
+  ],
+  "station_names": [
+    "Station_3011665",
+    "Station_3011685"
+  ]
+}

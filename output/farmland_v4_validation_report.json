@@ -1,0 +1,41 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Farmland_V4",
+  "collection": "DT_FARMLAND_V4",
+  "field_id": "GANGNAE-DEMO-001",
+  "field_area_m2": 7640.0,
+  "geometry_accuracy": "demo_candidate_not_cadastral",
+  "distance_to_miho_centerline_m": 450.68,
+  "risk_is_calculated": false,
+  "timeline": {
+    "normal": 1,
+    "attention": 48,
+    "risk": 96,
+    "fps": 24
+  },
+  "camera_keyframes": [
+    1,
+    48,
+    96
+  ],
+  "renders": {
+    "overview": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_farmland_v4_overview.png",
+      "bytes": 1091125
+    },
+    "focus_normal": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_farmland_v4_focus_normal.png",
+      "bytes": 1317736
+    },
+    "focus_risk": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_farmland_v4_focus_risk.png",
+      "bytes": 1320244
+    }
+  },
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_farmland_v4.blend",
+  "blend_bytes": 775814,
+  "limitations": [
+    "The MVP field is derived inside an OSM farmland area and is not a cadastral parcel.",
+    "The red risk state is a presentation keyframe and is not yet driven by an inundation calculation."
+  ]
+}

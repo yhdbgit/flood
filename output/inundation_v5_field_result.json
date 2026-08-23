@@ -1,0 +1,48 @@
+{
+  "status": "ok",
+  "field_id": "GANGNAE-DEMO-001",
+  "accuracy": "heuristic_demo_not_hydraulic_model",
+  "live_snapshot_context": {
+    "risk": {
+      "code": "normal",
+      "label": "정상"
+    },
+    "trend": "falling",
+    "water_level_m": 1.92,
+    "flow_m3s": 96.69,
+    "visual_level_delta_m": -0.02
+  },
+  "scenario_results": {
+    "attention": {
+      "scenario_label": "관심",
+      "sample_count": 786,
+      "wet_sample_count": 0,
+      "inundated_ratio": 0.0,
+      "inundated_percent": 0.0,
+      "display_max_depth_m": 0.0,
+      "risk_code": "normal",
+      "risk_label": "정상"
+    },
+    "warning": {
+      "scenario_label": "경계",
+      "sample_count": 786,
+      "wet_sample_count": 491,
+      "inundated_ratio": 0.6247,
+      "inundated_percent": 62.5,
+      "display_max_depth_m": 0.35,
+      "risk_code": "warning",
+      "risk_label": "경계"
+    },
+    "serious": {
+      "scenario_label": "심각",
+      "sample_count": 786,
+      "wet_sample_count": 786,
+      "inundated_ratio": 1.0,
+      "inundated_percent": 100.0,
+      "display_max_depth_m": 0.8,
+      "risk_code": "serious",
+      "risk_label": "심각"
+    }
+  },
+  "disclaimer": "MVP heuristic visualization; not an official forecast or hydraulic simulation."
+}

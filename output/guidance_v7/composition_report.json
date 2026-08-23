@@ -1,0 +1,17 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Guidance_V7",
+  "visual_strip_count": 9,
+  "overlay_strip_count": 1,
+  "audio_strip_count": 6,
+  "frames": [
+    1,
+    2160
+  ],
+  "fps": 24,
+  "duration_seconds": 90.0,
+  "video_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/gangnae_guidance_v7.mp4",
+  "video_bytes": 6090805,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_guidance_v7.blend",
+  "blend_bytes": 87714
+}

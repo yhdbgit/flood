@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "policy_name": "농업인 호우 사전안내 MVP 안전정책",
+  "official_sources": [
+    {
+      "organization": "기상청",
+      "title": "국민행동요령-호우",
+      "url": "https://www.weather.go.kr/w/hazard/safety-guide/heavy-rain.do"
+    },
+    {
+      "organization": "농림축산식품부",
+      "title": "집중호우 대비 농업인 행동요령",
+      "url": "https://www.mafra.go.kr/home/5109/subview.do"
+    }
+  ],
+  "allowed_before_rain_actions": [
+    "비가 오기 전에 주변 배수로와 막힌 곳을 확인합니다.",
+    "비닐하우스와 지주시설의 결박 상태를 확인합니다.",
+    "농기계와 이동 가능한 물건을 안전한 장소로 옮깁니다."
+  ],
+  "required_during_rain_actions": [
+    "비가 시작된 뒤에는 논둑이나 물꼬를 보러 나가지 않습니다.",
+    "하천변과 침수된 도로에 접근하지 않습니다.",
+    "기상청과 지자체의 공식 안내를 우선 확인합니다."
+  ],
+  "required_phrases": [
+    "가상 시나리오",
+    "비가 오기 전에",
+    "논둑이나 물꼬를 보러 나가지 마십시오",
+    "공식 재난예보를 대체하지 않습니다"
+  ],
+  "forbidden_phrases": [
+    "반드시 범람합니다",
+    "확실히 침수됩니다",
+    "공식 경보입니다",
+    "즉시 대피하십시오"
+  ]
+}

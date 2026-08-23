@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Guidance_V7",
+  "strip_type_counts": {
+    "IMAGE": 6,
+    "SOUND": 6,
+    "MOVIE": 4
+  },
+  "frames": [
+    1,
+    2160
+  ],
+  "fps": 24,
+  "duration_seconds": 90.0,
+  "video_bytes": 6090805,
+  "api_key_markers": [],
+  "failures": []
+}

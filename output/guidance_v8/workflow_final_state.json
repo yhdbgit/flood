@@ -1,0 +1,163 @@
+{
+  "status": "ok",
+  "run_id": "GANGNAE-GUIDANCE-V8",
+  "trace": [
+    {
+      "node": "context_agent",
+      "status": "ok",
+      "field_id": "GANGNAE-DEMO-001",
+      "video_bytes": 806512
+    },
+    {
+      "node": "script_agent",
+      "status": "ok",
+      "segment_count": 6,
+      "provider": "openai",
+      "fallback_used": false
+    },
+    {
+      "node": "safety_agent",
+      "status": "ok",
+      "passed": true
+    },
+    {
+      "node": "visual_asset_agent",
+      "status": "ok",
+      "slide_count": 5,
+      "overlay": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/slides/digital_twin_overlay.png"
+    },
+    {
+      "node": "tts_agent",
+      "status": "ok",
+      "audio_count": 6,
+      "provider_counts": {
+        "openai": 6,
+        "macos_say": 0
+      }
+    },
+    {
+      "node": "timeline_agent",
+      "status": "ok",
+      "total_seconds": 90.0,
+      "total_frames": 2160
+    },
+    {
+      "node": "subtitle_agent",
+      "status": "ok",
+      "subtitle_count": 6,
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/guidance_subtitles.srt"
+    },
+    {
+      "node": "manifest_agent",
+      "status": "ok",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/guidance_manifest.json",
+      "schema_version": "2.0"
+    },
+    {
+      "node": "composition_agent",
+      "status": "ok",
+      "video_bytes": 6023093,
+      "log": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/blender_composition.log"
+    }
+  ],
+  "safety_review": {
+    "passed": true,
+    "mode": "deterministic_rule_review_after_llm",
+    "segment_order_valid": true,
+    "missing_required_phrases": [],
+    "forbidden_phrases_found": [],
+    "missing_source_numbers": [],
+    "overlong_narrations": {},
+    "missing_before_rain_keywords": [],
+    "missing_segment_phrases": {},
+    "locked_narration_segments": [
+      "intro",
+      "forecast",
+      "digital_twin",
+      "during_rain",
+      "closing"
+    ],
+    "official_sources": [
+      {
+        "organization": "기상청",
+        "title": "국민행동요령-호우",
+        "url": "https://www.weather.go.kr/w/hazard/safety-guide/heavy-rain.do"
+      },
+      {
+        "organization": "농림축산식품부",
+        "title": "집중호우 대비 농업인 행동요령",
+        "url": "https://www.mafra.go.kr/home/5109/subview.do"
+      }
+    ],
+    "live_forecast_claimed": false
+  },
+  "generation_meta": {
+    "provider": "openai",
+    "model_requested": "gpt-4o-mini",
+    "model_actual": "gpt-4o-mini-2024-07-18",
+    "store": false,
+    "pii_sent": false,
+    "fallback_used": false,
+    "locked_narration_segments": [
+      "intro",
+      "forecast",
+      "digital_twin",
+      "during_rain",
+      "closing"
+    ],
+    "usage": {
+      "input_tokens": 701,
+      "output_tokens": 370,
+      "total_tokens": 1071
+    },
+    "safety_precheck": {
+      "passed": true,
+      "mode": "deterministic_rule_review_after_llm",
+      "segment_order_valid": true,
+      "missing_required_phrases": [],
+      "forbidden_phrases_found": [],
+      "missing_source_numbers": [],
+      "overlong_narrations": {},
+      "missing_before_rain_keywords": [],
+      "missing_segment_phrases": {},
+      "locked_narration_segments": [
+        "intro",
+        "forecast",
+        "digital_twin",
+        "during_rain",
+        "closing"
+      ],
+      "official_sources": [
+        {
+          "organization": "기상청",
+          "title": "국민행동요령-호우",
+          "url": "https://www.weather.go.kr/w/hazard/safety-guide/heavy-rain.do"
+        },
+        {
+          "organization": "농림축산식품부",
+          "title": "집중호우 대비 농업인 행동요령",
+          "url": "https://www.mafra.go.kr/home/5109/subview.do"
+        }
+      ],
+      "live_forecast_claimed": false
+    }
+  },
+  "tts_meta": {
+    "model_requested": "gpt-4o-mini-tts",
+    "voice_requested": "alloy",
+    "speed": 1.1,
+    "provider_counts": {
+      "openai": 6,
+      "macos_say": 0
+    },
+    "fallback_used": false,
+    "fallback_reasons": {},
+    "ai_voice_disclosure": "AI 생성 음성을 사용했습니다."
+  },
+  "manifest_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/guidance_manifest.json",
+  "script_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/narration_script.txt",
+  "subtitle_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/guidance_subtitles.srt",
+  "final_video": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v8/gangnae_guidance_v8.mp4",
+  "video_bytes": 6023093,
+  "duration_seconds": 90.0
+}

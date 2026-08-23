@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "mode": "mvp_demo_not_live_forecast",
+  "recipient_label": "MVP 농업인 A 어르신",
+  "location_label": "충북 청주시 흥덕구 강내면",
+  "field_id": "GANGNAE-DEMO-001",
+  "forecast": {
+    "source": "demo_scenario",
+    "decision_time_label": "오늘 오전 6시 30분",
+    "rain_start_label": "내일 새벽 5시",
+    "predicted_24h_rain_mm": 80,
+    "is_live": false
+  },
+  "digital_twin_video": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_flood_mvp_v6.mp4",
+  "field_result": "/Users/hyeokjae/Desktop/ICTCB/flood/output/inundation_v5_field_result.json",
+  "voice": {
+    "name": "Yuna",
+    "rate": 200
+  },
+  "target_duration_seconds": [75, 90]
+}

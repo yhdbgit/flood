@@ -1,0 +1,29 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Video_V6",
+  "video_id": "GANGNAE-MVP-V6",
+  "resolution": [
+    960,
+    540
+  ],
+  "fps": 24,
+  "frames": [
+    1,
+    120
+  ],
+  "duration_seconds": 5.0,
+  "status_overlays": [
+    "normal",
+    "attention",
+    "warning",
+    "serious"
+  ],
+  "poster": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_flood_mvp_v6_poster.png",
+    "bytes": 1063801
+  },
+  "video_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_flood_mvp_v6.mp4",
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_video_v6.blend",
+  "blend_bytes": 871439,
+  "accuracy": "heuristic_demo_not_hydraulic_model"
+}

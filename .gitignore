@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+*.blend1
+data/runtime/*.tmp
+

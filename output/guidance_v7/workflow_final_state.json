@@ -1,0 +1,82 @@
+{
+  "status": "ok",
+  "run_id": "GANGNAE-GUIDANCE-V7",
+  "trace": [
+    {
+      "node": "context_agent",
+      "status": "ok",
+      "field_id": "GANGNAE-DEMO-001",
+      "video_bytes": 806512
+    },
+    {
+      "node": "script_agent",
+      "status": "ok",
+      "segment_count": 6
+    },
+    {
+      "node": "safety_agent",
+      "status": "ok",
+      "passed": true
+    },
+    {
+      "node": "visual_asset_agent",
+      "status": "ok",
+      "slide_count": 5,
+      "overlay": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/slides/digital_twin_overlay.png"
+    },
+    {
+      "node": "tts_agent",
+      "status": "ok",
+      "voice": "Yuna",
+      "audio_count": 6
+    },
+    {
+      "node": "timeline_agent",
+      "status": "ok",
+      "total_seconds": 90.0,
+      "total_frames": 2160
+    },
+    {
+      "node": "subtitle_agent",
+      "status": "ok",
+      "subtitle_count": 6,
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/guidance_subtitles.srt"
+    },
+    {
+      "node": "manifest_agent",
+      "status": "ok",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/guidance_manifest.json"
+    },
+    {
+      "node": "composition_agent",
+      "status": "ok",
+      "video_bytes": 6090805,
+      "log": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/blender_composition.log"
+    }
+  ],
+  "safety_review": {
+    "passed": true,
+    "mode": "deterministic_rule_review",
+    "missing_required_phrases": [],
+    "forbidden_phrases_found": [],
+    "official_sources": [
+      {
+        "organization": "기상청",
+        "title": "국민행동요령-호우",
+        "url": "https://www.weather.go.kr/w/hazard/safety-guide/heavy-rain.do"
+      },
+      {
+        "organization": "농림축산식품부",
+        "title": "집중호우 대비 농업인 행동요령",
+        "url": "https://www.mafra.go.kr/home/5109/subview.do"
+      }
+    ],
+    "live_forecast_claimed": false
+  },
+  "manifest_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/guidance_manifest.json",
+  "script_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/narration_script.txt",
+  "subtitle_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/guidance_subtitles.srt",
+  "final_video": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v7/gangnae_guidance_v7.mp4",
+  "video_bytes": 6090805,
+  "duration_seconds": 90.0
+}

@@ -1,0 +1,83 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Inundation_V5",
+  "collection": "DT_INUNDATION_V5",
+  "flood_meshes": {
+    "attention": {
+      "cells": 520,
+      "display_area_m2": 829319.63
+    },
+    "warning": {
+      "cells": 1343,
+      "display_area_m2": 2141877.44
+    },
+    "serious": {
+      "cells": 1857,
+      "display_area_m2": 2961628.0
+    }
+  },
+  "field_results": {
+    "attention": {
+      "scenario_label": "관심",
+      "sample_count": 786,
+      "wet_sample_count": 0,
+      "inundated_ratio": 0.0,
+      "inundated_percent": 0.0,
+      "display_max_depth_m": 0.0,
+      "risk_code": "normal",
+      "risk_label": "정상"
+    },
+    "warning": {
+      "scenario_label": "경계",
+      "sample_count": 786,
+      "wet_sample_count": 491,
+      "inundated_ratio": 0.6247,
+      "inundated_percent": 62.5,
+      "display_max_depth_m": 0.35,
+      "risk_code": "warning",
+      "risk_label": "경계"
+    },
+    "serious": {
+      "scenario_label": "심각",
+      "sample_count": 786,
+      "wet_sample_count": 786,
+      "inundated_ratio": 1.0,
+      "inundated_percent": 100.0,
+      "display_max_depth_m": 0.8,
+      "risk_code": "serious",
+      "risk_label": "심각"
+    }
+  },
+  "camera_frames": [
+    1,
+    30,
+    65,
+    100,
+    120
+  ],
+  "renders": {
+    "normal": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_inundation_v5_normal.png",
+      "bytes": 1091015
+    },
+    "attention": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_inundation_v5_attention.png",
+      "bytes": 1095625
+    },
+    "warning": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_inundation_v5_warning.png",
+      "bytes": 1222550
+    },
+    "serious": {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_inundation_v5_serious.png",
+      "bytes": 1817927
+    }
+  },
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_inundation_v5.blend",
+  "blend_bytes": 863515,
+  "limitations": [
+    "The polygons are generated for an MVP visual demonstration and are not official flood-risk-map polygons.",
+    "The display depth is a scenario parameter, not a hydraulic-model result.",
+    "HRFCO observations are retained as context only and do not generate these polygons directly."
+  ]
+}

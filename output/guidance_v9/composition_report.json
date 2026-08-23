@@ -1,0 +1,17 @@
+{
+  "status": "ok",
+  "scene": "Gangnae_Guidance_V9",
+  "movie_strips": 1,
+  "image_strips": 7,
+  "sound_strips": 7,
+  "frames": [
+    1,
+    1440
+  ],
+  "fps": 24,
+  "duration_seconds": 60.0,
+  "video_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v9/gangnae_guidance_v9_60s.mp4",
+  "video_bytes": 5991305,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_guidance_v9.blend",
+  "blend_bytes": 87680
+}

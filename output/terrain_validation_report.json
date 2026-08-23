@@ -1,0 +1,50 @@
+{
+  "status": "ok",
+  "scope": "terrain-only",
+  "hgt_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/terrain/N36E127.hgt",
+  "hgt_bytes": 25934402,
+  "hgt_grid": [
+    3601,
+    3601
+  ],
+  "bounds_wgs84": [
+    127.33154296875,
+    36.58465761247168,
+    127.386474609375,
+    36.615527631349245
+  ],
+  "mesh_grid": [
+    165,
+    115
+  ],
+  "vertex_count": 18975,
+  "face_count": 18696,
+  "elevation_min_m": 7,
+  "elevation_max_m": 145,
+  "vertical_exaggeration": 2.0,
+  "terrain_dimensions_m": [
+    4909.21533203125,
+    3436.450439453125,
+    276.0
+  ],
+  "camera": "Camera_Gangnae_Overview",
+  "camera_location": [
+    463.4299011230469,
+    -7820.3798828125,
+    5780.45361328125
+  ],
+  "camera_lens_mm": 52.0,
+  "camera_clip": [
+    1.0,
+    100000.0
+  ],
+  "active_camera": "Camera_Gangnae_Overview",
+  "sun": "Sun_Gangnae",
+  "sun_energy": 3.0,
+  "material": "Material_Gangnae_Terrain",
+  "render_engine": "BLENDER_EEVEE",
+  "preview_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/gangnae_terrain_preview.png",
+  "preview_bytes": 867727,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_terrain_v1.blend",
+  "blend_bytes": 577421
+}
