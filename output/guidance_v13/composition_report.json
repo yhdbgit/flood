@@ -1,0 +1,17 @@
+{
+  "status": "ok",
+  "scene": "Osong_Guidance_V13",
+  "movie_strips": 1,
+  "image_strips": 5,
+  "sound_strips": 5,
+  "frames": [
+    1,
+    1536
+  ],
+  "fps": 24,
+  "duration_seconds": 64.0,
+  "video_path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v13/osong_guidance_v13_64s.mp4",
+  "video_bytes": 10229562,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_guidance_v13.blend",
+  "blend_bytes": 87569
+}

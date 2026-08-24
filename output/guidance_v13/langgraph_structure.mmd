@@ -1,0 +1,20 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	script_agent(script_agent)
+	tts_agent(tts_agent)
+	video_production_agent(video_production_agent)
+	composition_agent(composition_agent)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> script_agent;
+	script_agent --> tts_agent;
+	tts_agent --> video_production_agent;
+	video_production_agent --> composition_agent;
+	composition_agent --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "blend_file": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_hq_v11.blend",
+  "checks": {
+    "scene_name": true,
+    "terrain_present": true,
+    "aerial_image_loaded": true,
+    "water_present": true,
+    "roads_present": true,
+    "farmland_present": true,
+    "farmland_not_cadastral": true,
+    "official_reference_present": true,
+    "camera_count": true,
+    "camera_clip_end": true,
+    "freeview_clip_end": true,
+    "crs": true,
+    "origin_matches_c19": true,
+    "candidate_c19": true,
+    "older_files_not_modified_flag": true,
+    "renders_exist": true
+  },
+  "counts": {
+    "objects": 36,
+    "terrain_vertices": 16641,
+    "roads": 25,
+    "water": 2,
+    "official_reference_boundaries": 1,
+    "cameras": 3
+  }
+}

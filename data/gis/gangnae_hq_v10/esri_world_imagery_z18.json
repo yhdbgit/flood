@@ -1,0 +1,25 @@
+{
+  "provider": "Esri World Imagery",
+  "service": "ArcGIS World_Imagery MapServer",
+  "source_url_template": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+  "zoom": 18,
+  "bounds_wgs84": [
+    127.33304059584104,
+    36.60118478408029,
+    127.3440240770039,
+    36.61035187582116
+  ],
+  "pixel_size": [
+    2048,
+    2129
+  ],
+  "tile_range": [
+    223793,
+    102388,
+    223801,
+    102397
+  ],
+  "tile_count": 90,
+  "retrieved_at_utc": "2026-08-23T10:37:20.194690+00:00",
+  "purpose": "MVP digital-twin terrain texture"
+}

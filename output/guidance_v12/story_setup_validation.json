@@ -1,0 +1,68 @@
+{
+  "status": "ok",
+  "checks": {
+    "scene_name": true,
+    "timeline": true,
+    "duration_52_seconds": true,
+    "story_camera": true,
+    "flood_objects_present": true,
+    "ten_progression_steps": true,
+    "four_flood_cycles": true,
+    "representative_frames": true,
+    "final_hold_serious": true,
+    "candidate_c19": true,
+    "old_results_not_reused": true
+  },
+  "timeline": {
+    "1": [
+      1
+    ],
+    "217": [
+      10
+    ],
+    "241": [],
+    "336": [],
+    "337": [
+      1
+    ],
+    "553": [
+      10
+    ],
+    "577": [
+      1
+    ],
+    "793": [
+      10
+    ],
+    "817": [],
+    "912": [],
+    "913": [
+      1
+    ],
+    "1129": [
+      10
+    ],
+    "1248": [
+      10
+    ]
+  },
+  "counts": {
+    "flood_objects": 16,
+    "qa_frames": 13
+  },
+  "qa_frames": [
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0001.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0217.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0241.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0336.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0337.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0553.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0577.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0793.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0817.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0912.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_0913.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_1129.png",
+    "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/qa_frames/frame_1248.png"
+  ]
+}

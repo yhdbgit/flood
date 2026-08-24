@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "mode": "v13_official_floodmap_mvp",
+  "recipient_label": "오송읍 파일럿 농업인",
+  "location_label": "충북 청주시 흥덕구 오송읍 미호강 인접 농경지",
+  "field_id": "OSONG-OSM-FARMLAND-378002205",
+  "scenario": {
+    "source": "국가하천 홍수위험지도 금강권역 100년 빈도",
+    "frequency": "100년 빈도",
+    "field_affected_percent": 85.1,
+    "dominant_depth_class": "2.0~5.0m",
+    "sparse_max_class": "5.0m 이상",
+    "visual_depth_cap_m": 2.0,
+    "hydraulic_time_series": false
+  },
+  "forecast": {
+    "source": "기상청 단기예보 연동 입력",
+    "decision_time_label": "오늘 오전 6시 30분",
+    "rain_start_label": "내일 새벽 5시",
+    "predicted_24h_rain_mm": 80,
+    "is_live": false
+  },
+  "shelter": {
+    "name": "오송읍복지회관",
+    "facility_type": "공공시설(관공서,국·국립도서관,시·도(시군구)민 회관 등)",
+    "capacity": "262 명",
+    "address": "충청북도 청주시 흥덕구 오송읍 263-1",
+    "lon": 127.3241937,
+    "lat": 36.60890936,
+    "source": "생활안전지도 재해구호시설 API",
+    "official_flood_class_code": 0,
+    "outside_official_flood_extent": true
+  },
+  "route": {
+    "route_length_m": 5340.4,
+    "flood_exposed_length_m": 1729.8,
+    "field_to_route_start_m": 195.9,
+    "safe_start": [
+      127.3237092,
+      36.6086807
+    ],
+    "safe_tail_length_m": 0,
+    "shelter_snap_distance_m": 50.2,
+    "flood_exposed_road_edges": 1683,
+    "fully_flood_free_route_available": false,
+    "route_selection": "minimum-cost route with 25x penalty on official flood-map intersections",
+    "usage_condition": "대상 필지가 침수예상구역 안에 있으므로 반드시 비가 시작되기 전에 이용; 침수 후 안전경로로 사용 금지"
+  },
+  "digital_twin_blend": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_hq_v11.blend",
+  "inundation_data": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_official_inundation_v13.json",
+  "route_geojson": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_shelter_route_v13.geojson",
+  "voice": {
+    "name": "Yuna",
+    "rate": 190
+  },
+  "target_duration_seconds": 60,
+  "notice": "대상 필지는 침수예상구역 내부이므로 대피경로는 비가 시작되기 전 사전 이동용이다."
+}

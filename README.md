@@ -11,37 +11,33 @@
 - 등록 농경지의 예상 영향 범위
 - 비가 오기 전 준비 행동과 비가 시작된 뒤의 안전 행동
 
-현재 구현된 최종 버전은 **V9**이며, 강내면 파일럿 지역을 대상으로 60초 길이의 MP4 영상을 자동 생성한다.
+현재 구현된 최종 버전은 **V13**이며, 오송읍 미호강 인접 파일럿 지역을 대상으로 64초 MP4 안내 영상을 자동 생성한다. V13은 사전 렌더링된 디지털트윈 본편을 필수 입력으로 사용하며 워크플로 실행 중 3D 본편을 다시 렌더링하지 않는다.
 
 최종 산출물:
 
-- `output/guidance_v9/gangnae_guidance_v9_60s.mp4`: 60초 최종 안내 영상
-- `blender/gangnae_story_v9_base.blend`: 지형·하천·농경지·침수·카메라가 포함된 3D 장면
-- `blender/gangnae_guidance_v9.blend`: 영상·안내 이미지·TTS를 조합하는 Blender VSE 편집 파일
-- `output/guidance_v9/guidance_manifest.json`: 영상 구간과 에셋 배치 정보
-- `output/guidance_v9/workflow_final_state.json`: LangGraph 실행 결과
-- `output/guidance_v9/saved_blend_validation.json`: 최종 영상 검증 결과
+- `output/guidance_v13/osong_guidance_v13_64s.mp4`: 64초 최종 안내 영상
+- `output/guidance_v13/osong_story_v13_base.mp4`: 사전 렌더링된 디지털트윈 본편
+- `output/guidance_v13/guidance_manifest.json`: 합성 시간표와 영상·이미지·음성 자산 경로
+- `output/guidance_v13/narration_script.txt`: 구간별 안내 대본
+- `output/guidance_v13/guidance_subtitles.srt`: 구간별 자막
+- `output/guidance_v13/workflow_final_state.json`: 4개 에이전트 실행 결과와 소요 시간
 
 ## 2. 현재 구현 범위
 
 현재는 **입력 데이터가 준비된 이후 디지털트윈 안내 영상을 자동 제작하는 구간**까지 구현되어 있다.
 
 ```text
-예보·필지·침수 결과 JSON
+예보·필지·공식 침수 결과 JSON
         ↓
-LangGraph 워크플로
+대본 생성 에이전트
         ↓
-대본 구성 및 안전성 검사
+TTS 생성 에이전트: 구간별 음성 비동기 병렬 호출
         ↓
-Blender 3D 디지털트윈 렌더링
+영상제작 에이전트: 오버레이·경로 지도·자막·매니페스트 생성
         ↓
-OpenAI TTS 음성 생성
+합성 에이전트: 사전 렌더링 본편 + 이미지 + 음성 합성
         ↓
-안내 이미지·영상·음성 타임라인 생성
-        ↓
-Blender VSE 최종 합성
-        ↓
-60초 H.264/AAC MP4
+64초 MP4
 ```
 
 아직 자동화되지 않은 범위는 다음과 같다.
@@ -66,6 +62,8 @@ Blender VSE 최종 합성
 | V7 | LangGraph, 로컬 TTS, 안내 슬라이드, Blender 영상 합성 |
 | V8 | `gpt-4o-mini` 대본 생성과 `gpt-4o-mini-tts` 음성 생성 |
 | V9 | 60초 영상, 범람 반복, 농경지 확대, 마지막 정지 화면, OpenAI TTS 적용 |
+| V10~V12 | 고품질 지형·오송 파일럿·공식 침수자료·대피 경로 반영 |
+| V13 | 4개 LangGraph 에이전트, TTS 5건 비동기 병렬 생성, 사전 렌더링 본편 필수 재사용 |
 
 ## 4. 주요 기술과 사용 범위
 
@@ -74,7 +72,7 @@ Blender VSE 최종 합성
 | Blender Python API (`bpy`) | 사용 | 지형·하천·침수·카메라 애니메이션 및 MP4 렌더링 |
 | Blender Video Sequence Editor | 사용 | 기본 영상, 안내 이미지, TTS 음성 최종 합성 |
 | LangGraph | 사용 | 역할별 에이전트의 실행 순서와 상태 전달 |
-| 멀티에이전트 구조 | 역할 분리형으로 사용 | 입력·대본·검증·시각자료·TTS·렌더·합성 담당 분리 |
+| 멀티에이전트 구조 | 역할 분리형으로 사용 | 대본·병렬 TTS·영상제작·합성의 4개 노드 |
 | LangChain | 미사용 | 현재 코드에 LangChain Chain 또는 Runnable 구조 없음 |
 | OpenAI `gpt-4o-mini-tts` | 사용 | 한국어 안내 음성 생성 |
 | OpenAI `gpt-4o-mini` | V8에서만 사용 | 구조화된 대본 생성 실험 |
@@ -82,7 +80,7 @@ Blender VSE 최종 합성
 | VWorld 하천 데이터 | 사용 | 국가하천·소하천 관리구역 위치 표현 |
 | 한강홍수통제소 OpenAPI | 일부 연동 | 수위·유량·위험 기준·추세를 스냅샷으로 저장 |
 
-현재 V9은 여러 LLM이 서로 토론하는 자율형 멀티에이전트가 아니다. 역할별 Python 함수를 에이전트 노드로 구분하고 LangGraph가 이를 직렬 실행하는 **에이전트형 제작 워크플로**이다.
+현재 V13은 여러 LLM이 토론하는 자율형 멀티에이전트가 아니다. 역할별 Python 함수를 4개 에이전트 노드로 구분하고 LangGraph가 상태를 전달하는 **에이전트형 제작 워크플로**이다. TTS 에이전트 내부의 5개 음성 요청만 `asyncio.gather`로 병렬 실행한다.
 
 ## 5. 디렉터리 구조
 
@@ -208,34 +206,28 @@ Inundation_serious
 
 영상에서는 이 세 메시의 표시 여부를 프레임별로 전환하여 물이 점차 확산되는 모습을 표현한다.
 
-## 8. V9 LangGraph 워크플로
+## 8. V13 LangGraph 워크플로
 
-워크플로 진입점은 `agents/guidance_v9_workflow.py`이다.
+워크플로 진입점은 `agents/guidance_v13_workflow.py`이다. START와 END를 제외한 에이전트는 정확히 4개다.
 
 ```text
 START
-  → context_agent
   → script_agent
-  → safety_agent
-  → visual_asset_agent
-  → base_render_agent
   → tts_agent
-  → manifest_agent
+  → video_production_agent
   → composition_agent
-  → final_report_agent
   → END
 ```
 
 ### 8.1 공용 상태
 
-각 에이전트는 `StoryState`를 통해 결과를 전달한다.
+각 에이전트는 `StoryState`로 다음 핵심 결과를 전달한다.
 
 ```text
 run_id
 input_data
 field_result
 segments
-safety_review
 visual_assets
 tts_assets
 tts_meta
@@ -246,161 +238,69 @@ trace
 
 ### 8.2 에이전트 역할
 
-#### `context_agent`
-
-- `config/guidance_demo_input.json` 로드
-- `output/inundation_v5_field_result.json` 로드
-- V5 Blender 장면과 V9 스크립트 존재 여부 검사
-- 필지 계산 결과가 정상인지 검사
-
 #### `script_agent`
 
-- 60초 영상을 7개 구간으로 분할
-- 구간별 제목, 부제목, TTS 대본, 시작·종료 프레임 설정
-- 현재 V9에서는 LLM이 아니라 검증된 고정 대본 사용
-- 실행 이력에는 `editorial_locked`로 기록
-
-V8에서는 `gpt-4o-mini` Responses API와 JSON Schema를 이용해 대본을 생성했지만, V9에서는 영상 길이와 행동요령을 일정하게 유지하기 위해 대본을 고정했다.
-
-#### `safety_agent`
-
-다음 항목을 자동 검사한다.
-
-- 예측 강수량 80mm 포함
-- 농경지 영향률 62.5%, 100% 포함
-- 배수로, 농기계, 비닐하우스 행동 포함
-- 논둑이나 물꼬 접근 금지 포함
-- 긴급상황 119 안내 포함
-- 금지 문구 미포함
-- 1~1440 프레임의 연속성
-- 첫 프레임부터 TTS가 시작되는지 확인
-
-#### `visual_asset_agent`
-
-Pillow를 이용해 960×540 크기의 다음 이미지를 생성한다.
-
-- 디지털트윈 위에 표시할 투명 오버레이 6장
-- 마지막 행동요령 정보 화면 1장
-
-#### `base_render_agent`
-
-Blender를 백그라운드 모드로 실행한다.
-
-```text
-/Applications/Blender.app/Contents/MacOS/Blender \
-  --background blender/gangnae_inundation_v5.blend \
-  --python blender/build_gangnae_story_v9.py
-```
-
-정상적인 52초 기본 영상과 렌더 보고서가 이미 있으면 캐시를 재사용한다.
+- 안내 입력과 환경부 공식 침수 결과를 직접 로드한다.
+- 64초 타임라인을 5개 구간으로 나눈다.
+- 구간별 시작·종료 프레임, 제목, 부제목, 대본과 시각자료 종류를 생성한다.
 
 #### `tts_agent`
 
-- `.env`에서 OpenAI API 설정 로드
-- 7개 구간의 음성을 각각 MP3로 생성
-- 생성된 음성 길이를 `afinfo`로 측정
-- 음성이 구간보다 길면 재생 속도를 높여 다시 생성
-- OpenAI 호출 실패 시 macOS `say`로 대체
+- `AsyncOpenAI`를 사용한다.
+- 5개 구간 음성을 `asyncio.gather`로 동시에 요청한다.
+- 한 요청이 실패하면 해당 구간만 macOS `say`로 비동기 대체한다.
+- 음성 길이 검사, 재생속도 재생성, 별도 TTS 검증 노드는 사용하지 않는다.
 
-현재 최종 V9 실행 결과는 OpenAI TTS 7개, 로컬 대체 음성 0개이다.
+#### `video_production_agent`
 
-#### `manifest_agent`
-
-- 영상 구간별 프레임·이미지·음성 경로 통합
-- `guidance_manifest.json` 생성
-- `narration_script.txt` 생성
-- `guidance_subtitles.srt` 생성
+- Pillow로 구간별 오버레이와 실제 대피 경로 지도를 만든다.
+- TTS 경로와 시각자료 경로를 프레임 타임라인에 결합한다.
+- `guidance_manifest.json`, `narration_script.txt`, `guidance_subtitles.srt`를 생성한다.
+- 매니페스트는 영상 파일이 아니라 합성 에이전트가 읽는 **영상 제작 명세**다.
 
 #### `composition_agent`
 
-두 번째 Blender 프로세스를 실행해 기본 영상, 오버레이, TTS를 합성한다.
+- `output/guidance_v13/osong_story_v13_base.mp4`가 이미 존재한다고 전제한다.
+- 기본 본편을 새로 렌더링하거나 캐시 여부를 판정하는 에이전트는 없다.
+- Blender VSE에서 사전 렌더링 본편, 오버레이, TTS를 합성해 최종 MP4를 만든다.
+- 실행 결과와 에이전트별 소요 시간을 `workflow_final_state.json`에 기록한다.
 
-#### `final_report_agent`
+## 9. 64초 영상 타임라인
 
-영상 경로, 파일 크기, TTS 제공자, 안전성 검사와 실행 이력을 `workflow_final_state.json`에 저장한다.
-
-## 9. 60초 영상 타임라인
-
-최종 영상은 24fps, 총 1,440프레임이다.
+최종 영상은 24fps, 총 1,536프레임이다.
 
 | 시간 | 프레임 | 장면 |
 |---|---:|---|
-| 0~10초 | 1~240 | 전체 화면에서 1차 범람 |
-| 10~14초 | 241~336 | 범람 이전으로 초기화한 뒤 농경지 확대 |
-| 14~24초 | 337~576 | 확대된 농경지에서 1차 범람 |
-| 24~34초 | 577~816 | 전체 화면으로 초기화한 뒤 2차 범람 |
-| 34~38초 | 817~912 | 다시 초기화한 뒤 농경지 확대 |
-| 38~48초 | 913~1152 | 확대된 농경지에서 2차 범람 |
-| 48~52초 | 1153~1248 | 심각 단계 침수 화면 정지 |
-| 52~60초 | 1249~1440 | 최종 행동요령 화면 |
+| 0~20초 | 1~480 | 전체 시점에서 공식 침수예상 범위 확산 |
+| 20~24초 | 481~576 | 등록 농경지 확대 |
+| 24~44초 | 577~1056 | 확대 시점에서 농경지 침수 영향 표시 |
+| 44~47초 | 1057~1128 | 침수된 농경지 화면 정지와 접근 금지 안내 |
+| 47~64초 | 1129~1536 | 실제 재해구호시설과 비 오기 전 이동 경로 안내 |
 
-TTS는 1프레임부터 시작하며 각 구간 시작 프레임에 맞춰 새 음성이 배치된다.
+TTS는 첫 프레임부터 시작하고 각 구간 시작 프레임에 맞춰 배치된다.
 
-## 10. Blender 3D 영상 제작 방식
+## 10. Blender 3D 본편 정책
 
-### 10.1 장면 초기화
+V13의 사전 렌더링 본편은 `output/guidance_v13/osong_story_v13_base.mp4`이다. 지형, 하천, 등록 농경지, 공식 침수예상 범위, 카메라 이동과 범람 시퀀스가 이 파일에 포함된다.
 
-`blender/build_gangnae_story_v9.py`는 `gangnae_inundation_v5.blend`에서 다음 요소를 가져온다.
-
-- DEM 지형
-- 하천과 소하천
-- 등록 농경지
-- 관심·경계·심각 침수 메시
-- 농경지 재질
-- 기본 카메라
-
-### 10.2 카메라 애니메이션
-
-기존 카메라의 다음 시점을 샘플링한다.
-
-- 전체 시점: 기존 1프레임
-- 중간 시점: 기존 65프레임
-- 농경지 확대 시점: 기존 120프레임
-
-기존 애니메이션을 지우고 V9 타임라인에 맞춰 전체 → 중간 → 확대 카메라 키프레임을 다시 삽입한다.
-
-### 10.3 범람 애니메이션
-
-각 10초 범람 구간은 대략 다음 상태로 진행된다.
-
-```text
-정상
-  → 관심 침수 메시 표시
-  → 경계 침수 메시 표시
-  → 심각 침수 메시 표시
-  → 심각 상태 유지
-```
-
-동시에 농경지 재질도 녹색 → 주황색 → 빨간색으로 바뀐다.
-
-V6의 5초 범람을 V9에서 10초로 늘렸으므로 현재 재생 속도 계수는 `0.5`이다.
-
-### 10.4 기본 영상 렌더링
-
-Blender는 다음 설정으로 3D 기본 영상을 생성한다.
-
-- 프레임: 1~1248
-- FPS: 24
-- 길이: 52초
+- 원본 제작 스크립트: `blender/build_osong_story_v13.py`
 - 해상도: 960×540
-- 포맷: MPEG-4
-- 코덱: H.264
-- 출력: `output/guidance_v9/gangnae_story_v9_base.mp4`
+- FPS: 24
+- 워크플로 정책: 본편 파일이 준비돼 있다고 가정하고 렌더링 노드를 실행하지 않음
+- 최종 실행에서 수행하는 Blender 작업: VSE 합성만 수행
 
-렌더 직전 `scene.frame_set(1)`을 호출하고 `bpy.ops.render.render(animation=True)`로 전체 프레임을 렌더링한다.
-
-이 과정은 Blender 화면을 녹화하는 것이 아니다. 활성 카메라를 기준으로 각 프레임을 렌더링하고 FFmpeg가 프레임을 MP4로 인코딩한다. 따라서 Blender GUI가 화면에 보이지 않아도 실행되며 마우스 커서나 UI가 영상에 포함되지 않는다.
+본편을 새로 만들 필요가 있을 때만 제작 스크립트를 별도로 실행한다. 일반적인 대본·음성 변경은 3D 본편을 다시 렌더링하지 않는다.
 
 ## 11. OpenAI TTS
 
-V9은 OpenAI `gpt-4o-mini-tts`를 사용한다.
+V13은 OpenAI `gpt-4o-mini-tts`와 비동기 클라이언트를 사용한다.
 
 - 모델: `OPENAI_TTS_MODEL`, 기본값 `gpt-4o-mini-tts`
 - 음성: `OPENAI_TTS_VOICE`, 기본값 `alloy`
-- 기본 속도: `OPENAI_TTS_SPEED_V9`, 기본값 `1.15`
+- 기본 속도: `OPENAI_TTS_SPEED_V13`, 기본값 `1.08`
+- 생성 방식: 5개 구간을 `asyncio.gather`로 병렬 요청
 - API: `/v1/audio/speech`
-
-공식 모델 문서: <https://developers.openai.com/api/docs/models/gpt-4o-mini-tts>
+- 구간별 실패 대체: macOS `say`
 
 `.env` 예시:
 
@@ -408,43 +308,23 @@ V9은 OpenAI `gpt-4o-mini-tts`를 사용한다.
 OPENAI_API_KEY=발급받은_API_키
 OPENAI_TTS_MODEL=gpt-4o-mini-tts
 OPENAI_TTS_VOICE=alloy
-OPENAI_TTS_SPEED_V9=1.15
+OPENAI_TTS_SPEED_V13=1.08
 ```
 
 실제 `.env`는 Git에 포함하지 않으며 API 키를 README, JSON, Blender 파일 또는 로그에 기록하지 않는다.
 
 ## 12. 최종 영상 합성
 
-`blender/compose_guidance_video_v9.py`는 새 Blender 장면과 Video Sequence Editor를 생성한다.
+`blender/compose_guidance_video_v13.py`는 `guidance_manifest.json`을 읽어 Blender VSE 타임라인을 구성한다.
 
 ```text
-채널 1: 52초 디지털트윈 기본 영상 1개
-채널 2: 투명 안내 오버레이 6개 + 마지막 화면 1개
-채널 4: TTS 음성 7개
+사전 렌더링 디지털트윈 본편 1개
++ 구간별 오버레이 또는 대피 경로 이미지 5개
++ 병렬 생성된 TTS 음성 5개
+→ 64초 최종 안내 MP4
 ```
 
-최종 합성 설정:
-
-- 프레임: 1~1440
-- FPS: 24
-- 길이: 60초
-- 해상도: 960×540
-- 영상 코덱: H.264
-- 음성 코덱: AAC 192kbps
-- 출력: `output/guidance_v9/gangnae_guidance_v9_60s.mp4`
-
-전체 Blender 작업은 다음 두 단계로 분리된다.
-
-```text
-1차 Blender 렌더
-3D 장면 → 52초 무음 디지털트윈 MP4
-
-2차 Blender 렌더
-디지털트윈 MP4 + 오버레이 이미지 + TTS
-→ 60초 최종 안내 MP4
-```
-
-`gangnae_story_v9_base.blend`는 3D 장면을 검토할 때 사용하고, `gangnae_guidance_v9.blend`는 최종 영상 편집 타임라인을 검토할 때 사용한다.
+최종 출력은 `output/guidance_v13/osong_guidance_v13_64s.mp4`이다. 이 단계는 3D 지형을 다시 렌더링하지 않고 기존 MP4에 이미지와 음성을 합성한다.
 
 ## 13. 실행 방법
 
@@ -456,14 +336,14 @@ OPENAI_TTS_SPEED_V9=1.15
 - 주요 Python 패키지: `langgraph`, `openai`, `python-dotenv`, `Pillow`
 - 공간 데이터 전처리 패키지: `pyshp`, `shapely`, `pyproj`
 
-### 13.2 최종 V9 워크플로 실행
+### 13.2 최종 V13 워크플로 실행
 
 ```bash
 cd /Users/hyeokjae/Desktop/ICTCB/flood
-/Users/hyeokjae/Desktop/ICTCB/.venv/bin/python agents/guidance_v9_workflow.py
+PYTHONDONTWRITEBYTECODE=1 python3 agents/guidance_v13_workflow.py
 ```
 
-실행 시 정상적인 52초 기본 영상이 이미 존재하면 다시 3D 렌더링하지 않고 캐시를 재사용한다. 대본, 안내 이미지, TTS, 매니페스트와 최종 합성 영상은 V9 출력 폴더에 생성된다.
+실행 시 64초 사전 렌더링 본편이 이미 존재한다고 전제한다. 본편 렌더링 단계 없이 대본, 5개 병렬 TTS, 안내 이미지, 매니페스트와 최종 합성 영상만 V13 출력 폴더에 생성한다.
 
 ### 13.3 한강홍수통제소 데이터 갱신
 
@@ -511,7 +391,7 @@ cd /Users/hyeokjae/Desktop/ICTCB/flood
         ↓
 발송 대상 필지 선별
         ↓
-LangGraph V9 영상 제작 실행
+LangGraph V13 영상 제작 실행
         ↓
 앱 알림·보호자 알림·영상 다운로드 제공
 ```

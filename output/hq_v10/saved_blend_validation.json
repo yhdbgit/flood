@@ -1,0 +1,31 @@
+{
+  "status": "ok",
+  "blend_file": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/gangnae_hq_v10.blend",
+  "checks": {
+    "scene_name": true,
+    "terrain_present": true,
+    "aerial_image_loaded": true,
+    "road_count": true,
+    "bridge_count": true,
+    "water_count": true,
+    "registered_field_present": true,
+    "official_reference_present": true,
+    "camera_count": true,
+    "crs": true,
+    "metric_scale": true,
+    "aoi_size": true,
+    "v9_not_modified_flag": true,
+    "renders_exist": true
+  },
+  "counts": {
+    "objects": 53,
+    "terrain_vertices": 16641,
+    "roads": 41,
+    "bridges": 2,
+    "water": 3,
+    "buildings": 0,
+    "official_reference_boundaries": 1,
+    "cameras": 3
+  },
+  "note": "Zero OSM building footprints were returned for this exact 1 km AOI; no synthetic buildings were invented."
+}

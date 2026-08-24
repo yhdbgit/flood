@@ -1,0 +1,221 @@
+{
+  "status": "ok",
+  "scene": "Osong_Story_V12_Base",
+  "frames": [
+    1,
+    1248
+  ],
+  "fps": 24,
+  "duration_seconds": 52.0,
+  "camera": "Camera_Osong_Story_V12",
+  "camera_keyframes": [
+    1,
+    240,
+    241,
+    288,
+    336,
+    337,
+    576,
+    577,
+    816,
+    817,
+    864,
+    912,
+    913,
+    1248
+  ],
+  "flood_cycle_starts": [
+    1,
+    337,
+    577,
+    913
+  ],
+  "flood_cycle_count": 4,
+  "progression_steps_per_cycle": 10,
+  "flood_events": [
+    [
+      1,
+      1
+    ],
+    [
+      25,
+      2
+    ],
+    [
+      49,
+      3
+    ],
+    [
+      73,
+      4
+    ],
+    [
+      97,
+      5
+    ],
+    [
+      121,
+      6
+    ],
+    [
+      145,
+      7
+    ],
+    [
+      169,
+      8
+    ],
+    [
+      193,
+      9
+    ],
+    [
+      217,
+      10
+    ],
+    [
+      241,
+      null
+    ],
+    [
+      337,
+      1
+    ],
+    [
+      361,
+      2
+    ],
+    [
+      385,
+      3
+    ],
+    [
+      409,
+      4
+    ],
+    [
+      433,
+      5
+    ],
+    [
+      457,
+      6
+    ],
+    [
+      481,
+      7
+    ],
+    [
+      505,
+      8
+    ],
+    [
+      529,
+      9
+    ],
+    [
+      553,
+      10
+    ],
+    [
+      577,
+      1
+    ],
+    [
+      601,
+      2
+    ],
+    [
+      625,
+      3
+    ],
+    [
+      649,
+      4
+    ],
+    [
+      673,
+      5
+    ],
+    [
+      697,
+      6
+    ],
+    [
+      721,
+      7
+    ],
+    [
+      745,
+      8
+    ],
+    [
+      769,
+      9
+    ],
+    [
+      793,
+      10
+    ],
+    [
+      817,
+      null
+    ],
+    [
+      913,
+      1
+    ],
+    [
+      937,
+      2
+    ],
+    [
+      961,
+      3
+    ],
+    [
+      985,
+      4
+    ],
+    [
+      1009,
+      5
+    ],
+    [
+      1033,
+      6
+    ],
+    [
+      1057,
+      7
+    ],
+    [
+      1081,
+      8
+    ],
+    [
+      1105,
+      9
+    ],
+    [
+      1129,
+      10
+    ],
+    [
+      1153,
+      10
+    ],
+    [
+      1248,
+      10
+    ]
+  ],
+  "inundation_objects": 16,
+  "inundation_collection": "V12_INUNDATION",
+  "base_video": "/Users/hyeokjae/Desktop/ICTCB/flood/output/guidance_v12/osong_story_v12_base.mp4",
+  "base_video_bytes": 9900178,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_story_v12_base.blend",
+  "blend_bytes": 751749,
+  "render_elapsed_seconds": 519.427,
+  "old_gangnae_results_reused": false
+}

@@ -1,0 +1,244 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-23T11:05:03.704310+00:00",
+  "method": "Miho centreline sampling and weighted GIS screening",
+  "weights": {
+    "farmland": 30,
+    "motorway_avoidance": 20,
+    "official_river_zone": 15,
+    "river_visibility": 15,
+    "station_proximity": 10,
+    "flatness": 5,
+    "low_building_density": 5
+  },
+  "primary_station": {
+    "code": "3011665",
+    "name": "청주시(미호강교)",
+    "longitude": 127.35055555555554,
+    "latitude": 36.62305555555555
+  },
+  "candidate_count": 19,
+  "top_candidates": [
+    {
+      "id": "C02",
+      "centre_wgs84": [
+        127.35161702985891,
+        36.626356958025035
+      ],
+      "centre_utm52n": [
+        352612.9281889449,
+        4054689.3044989174
+      ],
+      "aoi_bounds_wgs84": [
+        127.34612340224565,
+        36.62177385415508,
+        127.35711130766077,
+        36.63093982140404
+      ],
+      "score": 70.26,
+      "metrics": {
+        "farmland_area_m2": 75663.6,
+        "farmland_percent": 7.6,
+        "official_river_zone_area_m2": 616437.0,
+        "visible_water_area_m2": 275047.6,
+        "river_length_m": 1073.0,
+        "river_central_length_m": 523.5,
+        "motorway_length_m": 0.0,
+        "other_road_length_m": 9652.8,
+        "building_area_m2": 0.0,
+        "station_distance_m": 378.4,
+        "elevation_range_m": 28
+      },
+      "component_scores": {
+        "farmland": 4.13,
+        "motorway_avoidance": 20.0,
+        "official_river_zone": 15.0,
+        "river_visibility": 15.0,
+        "station_proximity": 9.24,
+        "flatness": 1.89,
+        "low_building_density": 5.0
+      },
+      "rank": 1,
+      "aerial_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/pilot_selection_v11/C02_aerial_z17.jpg",
+      "evaluation_image": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/C02_evaluation.jpg"
+    },
+    {
+      "id": "C04",
+      "centre_wgs84": [
+        127.35021657191608,
+        36.6184603704464
+      ],
+      "centre_utm52n": [
+        352472.64695582597,
+        4053815.411396141
+      ],
+      "aoi_bounds_wgs84": [
+        127.34472357215442,
+        36.61387721236914,
+        127.35571022161133,
+        36.623043288127256
+      ],
+      "score": 65.03,
+      "metrics": {
+        "farmland_area_m2": 0.0,
+        "farmland_percent": 0.0,
+        "official_river_zone_area_m2": 631800.7,
+        "visible_water_area_m2": 132141.0,
+        "river_length_m": 1034.2,
+        "river_central_length_m": 528.4,
+        "motorway_length_m": 0.0,
+        "other_road_length_m": 8615.0,
+        "building_area_m2": 4479.0,
+        "station_distance_m": 510.8,
+        "elevation_range_m": 33
+      },
+      "component_scores": {
+        "farmland": 0.0,
+        "motorway_avoidance": 20.0,
+        "official_river_zone": 15.0,
+        "river_visibility": 15.0,
+        "station_proximity": 8.98,
+        "flatness": 1.33,
+        "low_building_density": 4.72
+      },
+      "rank": 2,
+      "aerial_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/pilot_selection_v11/C04_aerial_z17.jpg",
+      "evaluation_image": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/C04_evaluation.jpg"
+    },
+    {
+      "id": "C06",
+      "centre_wgs84": [
+        127.3478994786147,
+        36.6107756877181
+      ],
+      "centre_utm52n": [
+        352250.76472278096,
+        4052966.439217488
+      ],
+      "aoi_bounds_wgs84": [
+        127.34240714780513,
+        36.60619243434212,
+        127.35339245910859,
+        36.6153587008044
+      ],
+      "score": 64.13,
+      "metrics": {
+        "farmland_area_m2": 0.0,
+        "farmland_percent": 0.0,
+        "official_river_zone_area_m2": 643006.4,
+        "visible_water_area_m2": 134359.3,
+        "river_length_m": 1143.3,
+        "river_central_length_m": 597.0,
+        "motorway_length_m": 0.0,
+        "other_road_length_m": 5083.5,
+        "building_area_m2": 3421.5,
+        "station_distance_m": 1383.1,
+        "elevation_range_m": 26
+      },
+      "component_scores": {
+        "farmland": 0.0,
+        "motorway_avoidance": 20.0,
+        "official_river_zone": 15.0,
+        "river_visibility": 15.0,
+        "station_proximity": 7.23,
+        "flatness": 2.11,
+        "low_building_density": 4.79
+      },
+      "rank": 3,
+      "aerial_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/pilot_selection_v11/C06_aerial_z17.jpg",
+      "evaluation_image": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/C06_evaluation.jpg"
+    },
+    {
+      "id": "C19",
+      "centre_wgs84": [
+        127.30572825724568,
+        36.58306048243385
+      ],
+      "centre_utm52n": [
+        348424.80642098247,
+        4049957.4244164303
+      ],
+      "aoi_bounds_wgs84": [
+        127.30024039864198,
+        36.57847537931822,
+        127.31121676459055,
+        36.58764534616769
+      ],
+      "score": 59.83,
+      "metrics": {
+        "farmland_area_m2": 175148.9,
+        "farmland_percent": 17.5,
+        "official_river_zone_area_m2": 112063.0,
+        "visible_water_area_m2": 226842.5,
+        "river_length_m": 1166.8,
+        "river_central_length_m": 547.8,
+        "motorway_length_m": 0.0,
+        "other_road_length_m": 5584.5,
+        "building_area_m2": 0.0,
+        "station_distance_m": 5981.3,
+        "elevation_range_m": 13
+      },
+      "component_scores": {
+        "farmland": 9.55,
+        "motorway_avoidance": 20.0,
+        "official_river_zone": 6.72,
+        "river_visibility": 15.0,
+        "station_proximity": 0.0,
+        "flatness": 3.56,
+        "low_building_density": 5.0
+      },
+      "rank": 4,
+      "aerial_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/pilot_selection_v11/C19_aerial_z17.jpg",
+      "evaluation_image": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/C19_evaluation.jpg"
+    },
+    {
+      "id": "C10",
+      "centre_wgs84": [
+        127.34222903597147,
+        36.59665954630479
+      ],
+      "centre_utm52n": [
+        351716.58390446607,
+        4051409.1418259167
+      ],
+      "aoi_bounds_wgs84": [
+        127.33673801948196,
+        36.5920760549379,
+        127.34772070168574,
+        36.601242797599895
+      ],
+      "score": 55.34,
+      "metrics": {
+        "farmland_area_m2": 0.0,
+        "farmland_percent": 0.0,
+        "official_river_zone_area_m2": 494176.7,
+        "visible_water_area_m2": 85728.1,
+        "river_length_m": 1098.5,
+        "river_central_length_m": 593.9,
+        "motorway_length_m": 271.1,
+        "other_road_length_m": 3442.6,
+        "building_area_m2": 0.0,
+        "station_distance_m": 3022.0,
+        "elevation_range_m": 47
+      },
+      "component_scores": {
+        "farmland": 0.0,
+        "motorway_avoidance": 16.38,
+        "official_river_zone": 15.0,
+        "river_visibility": 15.0,
+        "station_proximity": 3.96,
+        "flatness": 0.0,
+        "low_building_density": 5.0
+      },
+      "rank": 5,
+      "aerial_path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/pilot_selection_v11/C10_aerial_z17.jpg",
+      "evaluation_image": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/C10_evaluation.jpg"
+    }
+  ],
+  "selected_candidate_id": "C02",
+  "excluded_evidence": {
+    "floodmap_dataset": "Geum basin local-river flood map, 50-year frequency",
+    "reason": "local-river scenario layer is not treated as a national Miho River inundation model"
+  },
+  "contact_sheet": "/Users/hyeokjae/Desktop/ICTCB/flood/output/pilot_selection_v11/pilot_candidates_contact_sheet.jpg"
+}
