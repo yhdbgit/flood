@@ -3,4 +3,6 @@ __pycache__/
 *.pyc
 *.blend1
 data/runtime/*.tmp
+output/*
+!output/.gitkeep
 

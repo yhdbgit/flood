@@ -11,16 +11,14 @@
 - 등록 농경지의 예상 영향 범위
 - 비가 오기 전 준비 행동과 비가 시작된 뒤의 안전 행동
 
-현재 구현된 최종 버전은 **V13**이며, 오송읍 미호강 인접 파일럿 지역을 대상으로 64초 MP4 안내 영상을 자동 생성한다. V13은 사전 렌더링된 디지털트윈 본편을 필수 입력으로 사용하며 워크플로 실행 중 3D 본편을 다시 렌더링하지 않는다.
+현재 저장소 기준으로 **영상 자동 제작 워크플로는 V13**, **디지털트윈 장면은 V17**까지 구현됐다. V14는 3km × 3km 배경 영역, V15는 연속 하천 수면, V16은 환경부 홍수위험지도 기반 침수 단계, V17은 한강홍수통제소 실시간 수위 단계 연동을 담당한다.
 
-최종 산출물:
+버전 관리 정책:
 
-- `output/guidance_v13/osong_guidance_v13_64s.mp4`: 64초 최종 안내 영상
-- `output/guidance_v13/osong_story_v13_base.mp4`: 사전 렌더링된 디지털트윈 본편
-- `output/guidance_v13/guidance_manifest.json`: 합성 시간표와 영상·이미지·음성 자산 경로
-- `output/guidance_v13/narration_script.txt`: 구간별 안내 대본
-- `output/guidance_v13/guidance_subtitles.srt`: 구간별 자막
-- `output/guidance_v13/workflow_final_state.json`: 4개 에이전트 실행 결과와 소요 시간
+- `output/`의 MP4·음성·정지 이미지·실행 리포트는 재생성 가능한 산출물이므로 Git에 포함하지 않는다.
+- 재현에 필요한 Python 소스, 설정, 가공 공간 데이터와 `.blend` 장면은 버전 관리한다.
+- V13 영상 워크플로 산출물은 실행 시 `output/guidance_v13/`에 다시 생성된다.
+- V17 실시간 정지 화면과 실행 리포트는 `scripts/run_osong_realtime_v17.py` 실행 시 `output/realtime_v17/`에 다시 생성된다.
 
 ## 2. 현재 구현 범위
 
@@ -64,6 +62,10 @@ TTS 생성 에이전트: 구간별 음성 비동기 병렬 호출
 | V9 | 60초 영상, 범람 반복, 농경지 확대, 마지막 정지 화면, OpenAI TTS 적용 |
 | V10~V12 | 고품질 지형·오송 파일럿·공식 침수자료·대피 경로 반영 |
 | V13 | 4개 LangGraph 에이전트, TTS 5건 비동기 병렬 생성, 사전 렌더링 본편 필수 재사용 |
+| V14 | 기존 1km 정밀 영역을 유지하고 3km × 3km 배경 지형·위성영상·공간 데이터 준비 |
+| V15 | OSM 수면 경계를 이용한 연속 하천 수면과 하천 아래 지형 마스킹 |
+| V16 | 환경부 홍수위험지도 기반 평상시·중간·최대 침수 단계와 필지 영향 표시 |
+| V17 | 한강홍수통제소 실시간 수위 위험도를 V16 시각 단계에 연결하고 오래된 데이터 차단 |
 
 ## 4. 주요 기술과 사용 범위
 
@@ -114,9 +116,8 @@ flood/
 ├── scripts/
 │   ├── prepare_gangnae_hydro.py
 │   └── fetch_hrfco_data.py
-└── output/
-    ├── inundation_v5_field_result.json
-    └── guidance_v9/
+└── output/                 # 실행 시 생성되며 Git에서는 제외
+    └── .gitkeep
 ```
 
 ## 6. 공간 데이터 구성
@@ -178,7 +179,7 @@ flood/
 
 현재 V9에서 수위 정보는 장면과 판단의 참고 정보로 보존되지만, 이 수위로 침수 폴리곤을 직접 계산하지는 않는다.
 
-## 7. 현재 침수 범위 계산
+## 7. 초기 V5 침수 범위 계산 이력
 
 V5의 침수 범위는 물리 유체 해석이나 2차원 수리 모형이 아니라 DEM과 하천 거리를 이용한 MVP 휴리스틱이다.
 
@@ -281,7 +282,7 @@ TTS는 첫 프레임부터 시작하고 각 구간 시작 프레임에 맞춰 �
 
 ## 10. Blender 3D 본편 정책
 
-V13의 사전 렌더링 본편은 `output/guidance_v13/osong_story_v13_base.mp4`이다. 지형, 하천, 등록 농경지, 공식 침수예상 범위, 카메라 이동과 범람 시퀀스가 이 파일에 포함된다.
+V13의 사전 렌더링 본편은 실행 시 `output/guidance_v13/osong_story_v13_base.mp4`에 생성된다. 이 파일은 저장소에는 포함하지 않는다. 지형, 하천, 등록 농경지, 공식 침수예상 범위, 카메라 이동과 범람 시퀀스가 이 파일에 포함된다.
 
 - 원본 제작 스크립트: `blender/build_osong_story_v13.py`
 - 해상도: 960×540
@@ -324,7 +325,7 @@ OPENAI_TTS_SPEED_V13=1.08
 → 64초 최종 안내 MP4
 ```
 
-최종 출력은 `output/guidance_v13/osong_guidance_v13_64s.mp4`이다. 이 단계는 3D 지형을 다시 렌더링하지 않고 기존 MP4에 이미지와 음성을 합성한다.
+최종 출력은 실행 시 `output/guidance_v13/osong_guidance_v13_64s.mp4`에 생성된다. 이 단계는 3D 지형을 다시 렌더링하지 않고 기존 MP4에 이미지와 음성을 합성한다.
 
 ## 13. 실행 방법
 
@@ -356,7 +357,7 @@ cd /Users/hyeokjae/Desktop/ICTCB/flood
 
 ## 14. 검증 결과
 
-`blender/validate_guidance_video_v9.py`와 `output/guidance_v9/saved_blend_validation.json` 기준으로 다음 항목이 통과했다.
+과거 V9 산출물 생성 당시 `blender/validate_guidance_video_v9.py` 검증에서 다음 항목이 통과했다. 산출물 JSON과 MP4 자체는 현재 Git에서 제외한다.
 
 - 최종 장면 이름 정상
 - MOVIE 스트립 1개

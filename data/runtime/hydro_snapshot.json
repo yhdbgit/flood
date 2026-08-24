@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "Han River Flood Control Office OpenAPI",
-  "generated_at": "2026-08-23T11:41:57.151634+09:00",
+  "generated_at": "2026-08-25T02:06:01.492792+09:00",
   "collector_status": "live",
   "source_notice": "T/M raw observations; values may differ from quality-controlled final data.",
   "primary_river": "미호강",
@@ -15,14 +15,14 @@
       "address": "충청북도 청주시 흥덕구 강내면 탑연리 미호천교(충청북도 청주시 흥덕구 오송읍 궁평리)",
       "longitude": 127.35055555555554,
       "latitude": 36.62305555555555,
-      "observed_at": "2026-08-23T11:30:00+09:00",
-      "age_minutes": 12.0,
-      "water_level_m": 1.92,
-      "flow_m3s": 96.69,
+      "observed_at": "2026-08-25T02:00:00+09:00",
+      "age_minutes": 6.0,
+      "water_level_m": 1.48,
+      "flow_m3s": 28.63,
       "gauge_zero_el_m": 19.643,
-      "estimated_surface_el_m": 21.563,
+      "estimated_surface_el_m": 21.123,
       "reference_water_level_m": 1.94,
-      "visual_level_delta_m": -0.02,
+      "visual_level_delta_m": -0.46,
       "risk": {
         "code": "normal",
         "label": "정상"
@@ -39,14 +39,14 @@
       "warnings": [],
       "history": {
         "count": 13,
-        "from": "2026-08-23T09:30:00+09:00",
-        "to": "2026-08-23T11:30:00+09:00",
-        "min_water_level_m": 1.92,
-        "max_water_level_m": 1.98,
-        "trend_m_per_hour": -0.03,
+        "from": "2026-08-25T00:00:00+09:00",
+        "to": "2026-08-25T02:00:00+09:00",
+        "min_water_level_m": 1.48,
+        "max_water_level_m": 1.48,
+        "trend_m_per_hour": 0.0,
         "interval_minutes": 10.0
       },
-      "trend": "falling"
+      "trend": "steady"
     },
     {
       "code": "3011685",
@@ -57,14 +57,14 @@
       "address": "충청북도 청주시 흥덕구 오송읍 미호교(세종시 연동면 예양리)",
       "longitude": 127.31638888888888,
       "latitude": 36.5825,
-      "observed_at": "2026-08-23T11:30:00+09:00",
-      "age_minutes": 12.0,
-      "water_level_m": 0.65,
-      "flow_m3s": 129.57,
+      "observed_at": "2026-08-25T02:00:00+09:00",
+      "age_minutes": 6.0,
+      "water_level_m": 0.43,
+      "flow_m3s": 32.12,
       "gauge_zero_el_m": 18.253,
-      "estimated_surface_el_m": 18.903,
+      "estimated_surface_el_m": 18.683,
       "reference_water_level_m": 0.65,
-      "visual_level_delta_m": 0.0,
+      "visual_level_delta_m": -0.22,
       "risk": {
         "code": "normal",
         "label": "정상"
@@ -87,10 +87,10 @@
       "code": "normal",
       "label": "정상"
     },
-    "trend": "falling",
-    "water_level_m": 1.92,
-    "flow_m3s": 96.69,
-    "visual_level_delta_m": -0.02
+    "trend": "steady",
+    "water_level_m": 1.48,
+    "flow_m3s": 28.63,
+    "visual_level_delta_m": -0.46
   },
   "flood_forecast": {
     "active": false,
