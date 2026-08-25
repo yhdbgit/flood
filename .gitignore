@@ -10,3 +10,4 @@ data/staging/
 output/*
 !output/.gitkeep
 
+data/gis/osong_visual_v21/**/tiles/

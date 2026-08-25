@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "OSONG-VISUAL-V21-MANIFEST",
+  "generated_at_utc": "2026-08-25T13:22:47.138086+00:00",
+  "status": "v21_selective_hq_baseline_visual_reviewed",
+  "source_v20_blend": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_flood_v20.blend",
+  "source_v20_unchanged": true,
+  "selective_hq_policy": true,
+  "files": [
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_visual_v21_context.json",
+      "bytes": 7928082,
+      "sha256": "44dc9439050a25fbcd357ea17dc33c1c6624cc452dc0e468569cc3bc5660bf46"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/osong_visual_v21/field_river_hq_1500m/esri_world_imagery_z19.jpg",
+      "bytes": 15349589,
+      "sha256": "6be247fd78b86ba578a2ad98d8651a4d3d874d5e2f632b436d773979f5fca294"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/osong_visual_v21/field_river_hq_1500m/esri_world_imagery_z19.json",
+      "bytes": 579,
+      "sha256": "947e203416c9dfed5bf2122cfd3261dae4015c15aa21f13757b2c6ba8bf8c165"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/osong_visual_v21/field_river_hq_1500m/ATTRIBUTION.txt",
+      "bytes": 345,
+      "sha256": "6bcbe64466d39ff91b096d8bb4f2cdeadc1f4386f5c382e6a8c9891456af9926"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_river_surface_v15.json",
+      "bytes": 252754,
+      "sha256": "a8288421f45dfb329d537eb8d35a5a7aab2591f9813e5509d52fceab093959d8"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/config/osong_farmland_v11.json",
+      "bytes": 1724,
+      "sha256": "bb38ea6a715c7e657ab507b330d8064e3b6198cc3680ca8a613c728f0c072387"
+    }
+  ],
+  "blender_scene": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_visual_v21.blend",
+    "bytes": 59600462,
+    "sha256": "4743ae54c194fc37b3967a8c5089682af6e747399b9fe28d83ab7acb9419940d",
+    "source_v20_unchanged": true,
+    "camera_keyframes_preserved": true,
+    "video_rendered": false
+  },
+  "scene_report": "/Users/hyeokjae/Desktop/ICTCB/flood/output/visual_v21/scene_report.json",
+  "visual_review": "/Users/hyeokjae/Desktop/ICTCB/flood/output/visual_v21/visual_review.json",
+  "final_mp4_rendered": false
+}

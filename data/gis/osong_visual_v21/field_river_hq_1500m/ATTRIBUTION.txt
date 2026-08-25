@@ -1,0 +1,6 @@
+Osong selective high-detail V21 attribution
+
+Aerial imagery: Esri World Imagery, z19.
+Road, building and visible-water geometry: OpenStreetMap contributors (ODbL).
+Terrain: SRTM 1 arc-second N36E127, approximately 30 m; resampled for mesh continuity.
+River management reference available from VWorld UJ201; not used as the visible water surface.
