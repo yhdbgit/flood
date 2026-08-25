@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "OSONG-FLOOD-V20-MANIFEST",
+  "generated_at_utc": "2026-08-25T09:16:10.598816+00:00",
+  "status": "v20_silent_base_video_rendered",
+  "source_v19_blend": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_shelter_v19.blend",
+  "source_v19_unchanged": true,
+  "hazard_map_overlay_visible": false,
+  "hydraulic_time_series": false,
+  "files": [
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_official_inundation_v13.json",
+      "bytes": 144625,
+      "sha256": "6140f2c65bc13a8a246afbe5dcfb98c8b5fa6ae050aefa2cbf00c3584056e77b"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_river_surface_v15.json",
+      "bytes": 252754,
+      "sha256": "a8288421f45dfb329d537eb8d35a5a7aab2591f9813e5509d52fceab093959d8"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_shelter_v19_outer.json",
+      "bytes": 2358858,
+      "sha256": "8d437fd6cdf6534c224645b88bac0c0b727a2fffa3f0582e57abea25f2d67e58"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_hq_v11_context.json",
+      "bytes": 1108974,
+      "sha256": "7cf4576f46a6eb611729f2d3403800eba5317550760c23d6818b1e8d9d34fa1f"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/config/osong_farmland_v11.json",
+      "bytes": 1724,
+      "sha256": "bb38ea6a715c7e657ab507b330d8064e3b6198cc3680ca8a613c728f0c072387"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_flood_v20.json",
+      "bytes": 368072,
+      "sha256": "654a94fb1f5bbbde02b73e02136c538a292716067117e79aa82a4734c45f3d56"
+    }
+  ],
+  "blender_scene": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_flood_v20.blend",
+    "bytes": 39394809,
+    "sha256": "4951e6bcaa3c674aaeb5f91322844ef4dea7395dd652310d930a61228797e58f",
+    "source_v19_unchanged": true,
+    "video_rendered": true
+  },
+  "scene_report": "/Users/hyeokjae/Desktop/ICTCB/flood/output/flood_v20/scene_report.json",
+  "video_output": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/flood_v20/osong_flood_camera_v20.mp4",
+    "bytes": 16343472,
+    "sha256": "e5673038c54a6ede5ed8e7393ff98356d12a4ce51bcac116855061b19f90980c",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 24,
+    "duration_seconds": 40.0,
+    "render_elapsed_seconds": 550.756,
+    "silent_base_video": true
+  }
+}
