@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "OSONG-VISUAL-V22-MANIFEST",
+  "generated_at_utc": "2026-08-25T16:08:54.512108+00:00",
+  "status": "approved_silent_base_rendered",
+  "source_v21_unchanged": true,
+  "files": [
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_visual_v22_context.json",
+      "bytes": 33058,
+      "sha256": "efc5de354bdcea5462ad5f308e6192f7dbea85033f68fae9cae95cc564e90c95"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_visual_v21_context.json",
+      "bytes": 7928082,
+      "sha256": "44dc9439050a25fbcd357ea17dc33c1c6624cc452dc0e468569cc3bc5660bf46"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/processed/osong_shelter_v19_hq.json",
+      "bytes": 1125876,
+      "sha256": "eb02ec76370294e1e95a5045b5f8ac6c069cab27d7b601a2a38ef4cfd45328a4"
+    },
+    {
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/data/gis/osong_visual_v21/field_river_hq_1500m/esri_world_imagery_z19.jpg",
+      "bytes": 15349589,
+      "sha256": "6be247fd78b86ba578a2ad98d8651a4d3d874d5e2f632b436d773979f5fca294"
+    }
+  ],
+  "blender_scene": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_visual_v22.blend",
+    "bytes": 59627471,
+    "sha256": "e4a62f77a1bc8d5a9cb4b2837fe96ffe3aa2bcaac2492ed1b9f2f94720325014",
+    "source_v21_unchanged": true,
+    "camera_keyframes_preserved": true,
+    "video_rendered": false
+  },
+  "scene_report": "/Users/hyeokjae/Desktop/ICTCB/flood/output/visual_v22/scene_report.json",
+  "visual_review": {
+    "status": "passed_with_limitations",
+    "report": "/Users/hyeokjae/Desktop/ICTCB/flood/output/visual_v22/scene_report.json",
+    "final_mp4_approved": true
+  },
+  "video_output": {
+    "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/visual_v22/osong_visual_v22_60s.mp4",
+    "bytes": 21518116,
+    "sha256": "894d7e25e7fbf11b229a4392a9ae5a7d0e677e53a24870f4a23df41b4aa6f0ac",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 16,
+    "duration_seconds": 60.0,
+    "render_elapsed_seconds": 741.647,
+    "silent_base_video": true,
+    "reuse_policy": "render_once_and_reuse_for_all_v22_guidance_compositions"
+  }
+}
