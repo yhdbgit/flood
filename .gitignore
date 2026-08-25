@@ -3,6 +3,10 @@ __pycache__/
 *.pyc
 *.blend1
 data/runtime/*.tmp
+data/runtime/kma_forecast_v18.json
+data/runtime/guidance_context_v18.json
+data/runtime/v18_dispatch_history.json
+data/staging/
 output/*
 !output/.gitkeep
 
