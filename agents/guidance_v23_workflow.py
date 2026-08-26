@@ -17,21 +17,19 @@ from openai import AsyncOpenAI
 from PIL import Image, ImageDraw, ImageFont
 from typing_extensions import TypedDict
 
-import guidance_v18_workflow as v18
-from v23_event_contract import load_and_validate_event
+import runtime_utils
+from runtime_config import ROOT, blender_binary, font_path, output_root
+from v23_event_contract import load_and_validate_event, validate_event
 from v23_field_registry import FieldRegistry
 from v23_personalized_visual_builder import build_personalized_visual_plan
 
 
-ROOT = Path("/Users/hyeokjae/Desktop/ICTCB/flood")
 DEFAULT_EVENT = ROOT / "data" / "v23" / "events" / "valid_forecast_and_hydrology.json"
-DEFAULT_OUTPUT_ROOT = ROOT / "output" / "guidance_v23"
-PERSONALIZED_ROOT = ROOT / "output" / "personalized_visuals" / "v23"
+DEFAULT_OUTPUT_ROOT = output_root() / "guidance_v23"
+PERSONALIZED_ROOT = output_root() / "personalized_visuals" / "v23"
 VISUAL_COMPOSER = ROOT / "blender" / "compose_personalized_visual_v23.py"
 VISUAL_AUDITOR = ROOT / "blender" / "audit_personalized_visual_v23.py"
 FINAL_COMPOSER = ROOT / "blender" / "compose_guidance_video_v23.py"
-BLENDER = Path("/Applications/Blender.app/Contents/MacOS/Blender")
-FONT_PATH = Path("/System/Library/Fonts/Supplemental/AppleGothic.ttf")
 FPS = 16
 PERSONALIZED_VISUAL_END = 960
 FRAME_END = 1280
@@ -177,7 +175,7 @@ async def tts_agent(state: StoryState) -> Dict[str, Any]:
     started = perf_counter()
     try:
         results = await asyncio.gather(*[
-            v18.generate_tts_segment(client, model, voice, speed, audio_dir, index, item)
+            runtime_utils.generate_tts_segment(client, model, voice, speed, audio_dir, index, item)
             for index, item in enumerate(state["segments"], start=1)
         ])
     finally:
@@ -187,7 +185,7 @@ async def tts_agent(state: StoryState) -> Dict[str, Any]:
     counts = {"openai": 0, "macos_say": 0}
     fallbacks = {}
     for identifier, asset, fallback in results:
-        duration = v18.read_audio_duration_seconds(Path(asset["path"]))
+        duration = runtime_utils.read_audio_duration_seconds(Path(asset["path"]))
         assigned = float(asset["assigned_duration_seconds"])
         asset["source_duration_seconds"] = round(duration, 3)
         asset["cropped_seconds"] = round(max(0.0, duration - assigned), 3)
@@ -209,7 +207,7 @@ async def tts_agent(state: StoryState) -> Dict[str, Any]:
 
 
 def font(size: int):
-    return ImageFont.truetype(str(FONT_PATH), size=size)
+    return ImageFont.truetype(str(font_path()), size=size)
 
 
 def information_card(path: Path, title: str, subtitle: str, lines: List[str], accent: str) -> None:
@@ -249,12 +247,12 @@ def ensure_personalized_visual(state: StoryState) -> Dict[str, Any]:
         plan = build_personalized_visual_plan(event, output_root=PERSONALIZED_ROOT)
         write_json(plan_path, plan)
         logs = Path(state["run_dir"]) / "logs"
-        v18.run_logged(
-            [str(BLENDER), "--background", "--python", str(VISUAL_COMPOSER), "--", "--plan", str(plan_path)],
+        runtime_utils.run_logged(
+            [str(blender_binary()), "--background", "--python", str(VISUAL_COMPOSER), "--", "--plan", str(plan_path)],
             ROOT, logs / "personalized_visual_composition.log",
         )
-        v18.run_logged(
-            [str(BLENDER), "--background", "--python", str(VISUAL_AUDITOR), "--", "--report", str(report_path)],
+        runtime_utils.run_logged(
+            [str(blender_binary()), "--background", "--python", str(VISUAL_AUDITOR), "--", "--report", str(report_path)],
             ROOT, logs / "personalized_visual_audit.log",
         )
     report = read_json(report_path)
@@ -286,7 +284,7 @@ def video_production_agent(state: StoryState) -> Dict[str, Any]:
     for index, item in enumerate(state["segments"], start=1):
         audio = state["tts_assets"][item["id"]]
         enriched.append({**item, "visual_path": visual_assets[item["visual_key"]], "audio_path": audio["path"], "audio_provider": audio["provider"]})
-        subtitles.extend([str(index), f"{v18.srt_time((item['start_frame'] - 1) / FPS)} --> {v18.srt_time(item['end_frame'] / FPS)}", item["narration"], ""])
+        subtitles.extend([str(index), f"{runtime_utils.srt_time((item['start_frame'] - 1) / FPS)} --> {runtime_utils.srt_time(item['end_frame'] / FPS)}", item["narration"], ""])
     manifest = {
         "schema_version": "1.0",
         "workflow_version": "V23",
@@ -328,8 +326,8 @@ def composition_agent(state: StoryState) -> Dict[str, Any]:
         write_json(run_dir / "workflow_final_state.json", {"status": "planned", "run_id": state["run_id"], "final_video": None, "trace": trace})
         return {"final_video": "", "trace": trace}
     started = perf_counter()
-    v18.run_logged(
-        [str(BLENDER), "--background", "--python", str(FINAL_COMPOSER), "--", "--manifest", str(manifest_path)],
+    runtime_utils.run_logged(
+        [str(blender_binary()), "--background", "--python", str(FINAL_COMPOSER), "--", "--manifest", str(manifest_path)],
         ROOT, run_dir / "logs" / "final_composition.log",
     )
     video = Path(state["manifest"]["output_video"])
@@ -357,16 +355,15 @@ def build_graph():
     return builder.compile()
 
 
-async def run_workflow(event_path: Path, mode: str, output_root: Path) -> Dict[str, Any]:
-    event_path = event_path.resolve()
-    event = load_and_validate_event(event_path)
+async def run_workflow_event(event: Dict[str, Any], mode: str, output_root: Path, event_path: Path | None = None) -> Dict[str, Any]:
+    event = validate_event(event)
     field = FieldRegistry.load().resolve_event(event)
     run_id = safe_run_id(event)
     run_dir = output_root.resolve() / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     graph = build_graph()
     (run_dir / "langgraph_structure.mmd").write_text(graph.get_graph().draw_mermaid(), encoding="utf-8")
-    result = await graph.ainvoke({"run_id": run_id, "mode": mode, "event_path": str(event_path), "event": event, "field": field, "run_dir": str(run_dir), "trace": []})
+    result = await graph.ainvoke({"run_id": run_id, "mode": mode, "event_path": str(event_path) if event_path else None, "event": event, "field": field, "run_dir": str(run_dir), "trace": []})
     return {
         "status": "planned" if mode == "plan" else "completed",
         "run_id": run_id,
@@ -377,6 +374,11 @@ async def run_workflow(event_path: Path, mode: str, output_root: Path) -> Dict[s
         "trace_nodes": [item["node"] for item in result["trace"]],
         "tts_meta": result["tts_meta"],
     }
+
+
+async def run_workflow(event_path: Path, mode: str, output_root: Path) -> Dict[str, Any]:
+    event_path = event_path.resolve()
+    return await run_workflow_event(load_and_validate_event(event_path), mode, output_root, event_path=event_path)
 
 
 def parse_args():

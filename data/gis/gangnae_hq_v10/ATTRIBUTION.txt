@@ -1,8 +1,0 @@
-Gangnae HQ V10 data attribution
-
-Aerial imagery: Esri World Imagery (retrieved through ArcGIS World_Imagery MapServer).
-Vector context: OpenStreetMap contributors, data available under ODbL.
-Official river-management zones: VWorld UJ201/UJ301 source data supplied by the project.
-Terrain: SRTM 1 arc-second N36E127 HGT, approximately 30 m resolution.
-
-The official river-management polygons are reference zones, not the current wetted river surface.

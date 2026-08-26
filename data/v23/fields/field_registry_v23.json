@@ -72,7 +72,7 @@
         "scene_zone_id": "OSONG-MIHO-REGION",
         "scene_pack_id": "OSONG-MIHO-SCENE-PACK-V23",
         "camera_profile_id": "V23-OSONG-FIELD-DEMO-001-CAMERA",
-        "preparation_status": "pending"
+        "preparation_status": "ready"
       },
       "shelter": {
         "shelter_id": "OSONG-EUP-WELFARE-CENTER",
@@ -209,7 +209,7 @@
         "scene_zone_id": "OSONG-MIHO-REGION",
         "scene_pack_id": "OSONG-MIHO-SCENE-PACK-V23",
         "camera_profile_id": "V23-OSONG-FIELD-DEMO-002-CAMERA",
-        "preparation_status": "pending"
+        "preparation_status": "ready"
       },
       "shelter": {
         "shelter_id": "OSONG-EUP-WELFARE-CENTER",
@@ -286,7 +286,7 @@
         "scene_zone_id": "OSONG-MIHO-REGION",
         "scene_pack_id": "OSONG-MIHO-SCENE-PACK-V23",
         "camera_profile_id": "V23-OSONG-FIELD-DEMO-003-CAMERA",
-        "preparation_status": "pending"
+        "preparation_status": "ready"
       },
       "shelter": {
         "shelter_id": "OSONG-EUP-WELFARE-CENTER",

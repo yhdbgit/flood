@@ -10,13 +10,12 @@ from typing import Any, Dict
 
 from v23_event_contract import load_and_validate_event, validate_event
 from v23_field_registry import FieldRegistry
-from v23_flood_asset_catalog import FloodAssetCatalog
+from v23_runtime_asset_catalog import RuntimeAssetCatalog
+from runtime_config import output_root
 
 
 ROOT = Path(__file__).resolve().parents[1]
-COMPOSITION_ASSET_PLAN = ROOT / "data" / "v23" / "composition_assets" / "composition_asset_plan_v23.json"
-COMPOSITION_ASSET_MANIFEST = ROOT / "data" / "v23" / "composition_assets" / "composition_assets_manifest_v23.json"
-DEFAULT_OUTPUT_ROOT = ROOT / "output" / "personalized_visuals" / "v23"
+DEFAULT_OUTPUT_ROOT = output_root() / "personalized_visuals" / "v23"
 SAFE_NAME = re.compile(r"[^A-Za-z0-9._-]+")
 
 
@@ -30,22 +29,12 @@ def build_personalized_visual_plan(
 ) -> Dict[str, Any]:
     event = validate_event(event)
     field = FieldRegistry.load().resolve_event(event)
-    flood = FloodAssetCatalog.load().select(field["field_id"], event["scenario_id"])
-    asset_plan = json.loads(COMPOSITION_ASSET_PLAN.read_text(encoding="utf-8"))
-    assets = json.loads(COMPOSITION_ASSET_MANIFEST.read_text(encoding="utf-8"))
-    if assets.get("status") != "ready":
-        raise ValueError("Stage 7 composition assets are not ready")
-    by_id = {item["asset_id"]: item for item in assets["assets"]}
-    field_selection = asset_plan["selection_by_field_id"][field["field_id"]]
-    background = by_id[field_selection["background_asset_id"]]
-    field_overlay = by_id[field_selection["field_overlay_asset_id"]]
-    shelter_overlay = by_id[asset_plan["shared_shelter_overlay_asset_id"]]
+    cached = RuntimeAssetCatalog.load().select(field["field_id"], event["scenario_id"])
 
     run_dir = output_root / _slug(event["event_id"])
     output_video = run_dir / f"{_slug(field['field_id'])}_personalized_visual_v23.mp4"
     output_blend = run_dir / f"{_slug(field['field_id'])}_composition_v23.blend"
     report = run_dir / "composition_report_v23.json"
-    flood_segments = flood["segments"]
     strips = [
         {
             "strip_id": "common_background_full",
@@ -53,46 +42,52 @@ def build_personalized_visual_plan(
             "channel": 1,
             "timeline_start": 1,
             "duration_frames": 960,
-            "path": asset_plan["common_background_clip"],
+            "path": cached["common_background"]["path"],
             "alpha_over": False,
         },
         {
-            "strip_id": background["asset_id"],
+            "strip_id": cached["field_background"]["asset_id"],
             "role": "field_camera_background_replacement",
             "channel": 2,
             "timeline_start": 1,
             "duration_frames": 719,
-            "path": background["project_relative_path"],
+            "path": cached["field_background"]["path"],
             "alpha_over": False,
         },
-        *[
-            {
-                "strip_id": item["segment_id"],
-                "role": "flood_rgba",
-                "channel": 3,
-                "timeline_start": item["frame_start"],
-                "duration_frames": item["frame_count"],
-                "path": item["project_relative_path"],
-                "alpha_over": True,
-            }
-            for item in flood_segments
-        ],
         {
-            "strip_id": field_overlay["asset_id"],
+            "strip_id": cached["field_flood"]["asset_id"],
+            "role": "field_flood_rgba",
+            "channel": 3,
+            "timeline_start": 1,
+            "duration_frames": 719,
+            "path": cached["field_flood"]["path"],
+            "alpha_over": True,
+        },
+        {
+            "strip_id": cached["shelter_flood"]["asset_id"],
+            "role": "shelter_flood_rgba",
+            "channel": 3,
+            "timeline_start": 720,
+            "duration_frames": 241,
+            "path": cached["shelter_flood"]["path"],
+            "alpha_over": True,
+        },
+        {
+            "strip_id": cached["field_overlay"]["asset_id"],
             "role": "selected_field_rgba",
             "channel": 4,
             "timeline_start": 1,
             "duration_frames": 719,
-            "path": field_overlay["project_relative_path"],
+            "path": cached["field_overlay"]["path"],
             "alpha_over": True,
         },
         {
-            "strip_id": shelter_overlay["asset_id"],
+            "strip_id": cached["shelter_overlay"]["asset_id"],
             "role": "shelter_rgba",
             "channel": 4,
             "timeline_start": 720,
             "duration_frames": 241,
-            "path": shelter_overlay["project_relative_path"],
+            "path": cached["shelter_overlay"]["path"],
             "alpha_over": True,
         },
     ]
@@ -119,8 +114,8 @@ def build_personalized_visual_plan(
             "vse_cached_media_composition": True,
             "full_scene_rerender_at_trigger_time": False,
         },
-        "field_focus_flood_visible": flood["field_focus_flood_visible"],
-        "risk_claim_allowed": flood["risk_claim_allowed"],
+        "field_focus_flood_visible": field["derived_metrics"]["official_flood_intersection_percent"] > 0,
+        "risk_claim_allowed": field["derived_metrics"]["official_flood_intersection_percent"] > 0,
     }
 
 

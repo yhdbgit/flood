@@ -1,9 +1,0 @@
-Osong HQ V11 data attribution
-
-Aerial imagery: Esri World Imagery.
-Vector context and agricultural land-cover: OpenStreetMap contributors (ODbL).
-Official river/use district: VWorld UJ201 supplied by the project.
-Terrain: SRTM 1 arc-second N36E127, approximately 30 m.
-
-The highlighted agricultural area is OSM land cover, not a cadastral parcel.
-The official river polygon is a management/use district, not a live water surface.

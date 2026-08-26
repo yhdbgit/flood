@@ -1,408 +1,160 @@
-# 충북 농업인 홍수피해 예방 디지털트윈 영상 제작 MVP
+# V23 농경지 맞춤형 홍수 안내 영상 제작기
 
-## 1. 프로젝트 개요
+팀 백엔드가 홍수 안내 발송을 결정한 뒤 전달한 이벤트를 받아, 등록 농경지에 맞는 약 80초 MP4를 생성하는 서비스다. V23은 트리거 기준을 다시 계산하지 않는다. `field_id`의 소유권과 입력 형식만 확인하고, 사전 렌더링된 디지털트윈 자산을 재사용해 대본, TTS, 개인화 영상, 최종 합성을 수행한다.
 
-이 프로젝트는 충북 농업인의 홍수 피해 예방을 위해 다음 정보를 하나의 맞춤형 안내 영상으로 제작하는 MVP이다.
-
-- 특정 농경지의 위치와 형상
-- 예측 강수량과 강우 시작 시각
-- 실제 지형과 하천 위치
-- 단계별 예상 침수 범위
-- 등록 농경지의 예상 영향 범위
-- 비가 오기 전 준비 행동과 비가 시작된 뒤의 안전 행동
-
-현재 저장소 기준으로 **V22 선택적 3D 디지털트윈과 4개 LangGraph 에이전트 영상 제작 연결**까지 구현됐다. V22는 승인된 60초 동적 디지털트윈 본편을 한 번만 렌더링해 재사용하고, 기상청 예보·농경지·행동요령·대피시설 컨텍스트로 병렬 TTS와 정보 카드를 생성해 약 80초 안내 영상으로 합성한다.
-
-버전 관리 정책:
-
-- `output/`의 MP4·음성·정지 이미지·실행 리포트는 재생성 가능한 산출물이므로 Git에 포함하지 않는다.
-- 재현에 필요한 Python 소스, 설정, 가공 공간 데이터와 `.blend` 장면은 버전 관리한다.
-- V13 영상 워크플로 산출물은 실행 시 `output/guidance_v13/`에 다시 생성된다.
-- V17 실시간 정지 화면과 실행 리포트는 `scripts/run_osong_realtime_v17.py` 실행 시 `output/realtime_v17/`에 다시 생성된다.
-- V18 실행 방법과 게이트 정책은 `docs/V18_LANGGRAPH_WORKFLOW.md`에 정리되어 있다.
-- V22 동적 본편 재사용과 4개 에이전트 합성은 `docs/V22_LANGGRAPH_WORKFLOW.md`에 정리되어 있다.
-
-## 2. 현재 구현 범위
-
-현재는 **입력 데이터가 준비된 이후 디지털트윈 안내 영상을 자동 제작하는 구간**까지 구현되어 있다.
+## 처리 구조
 
 ```text
-V18 통합 컨텍스트 생성 및 발동 게이트
-        ↓
-대본 생성 에이전트
-        ↓
-TTS 생성 에이전트: 5개 구간 비동기 병렬 호출
-        ↓
-영상제작 에이전트: 컨텍스트 일치 프리뷰 재사용·카드·매니페스트 생성
-        ↓
-합성 에이전트: 정지 프리뷰 + 안내 카드 + 음성 합성
-        ↓
-실제 TTS 길이에 맞춘 60~120초 MP4
+팀 트리거 서비스
+  -> V23 이벤트 검증 및 농경지 조회
+  -> script_agent
+  -> tts_agent (OpenAI TTS 병렬 호출)
+  -> video_production_agent (캐시 영상만 조합)
+  -> composition_agent (음성·정보화면 합성)
+  -> 개인화 MP4
 ```
 
-아직 자동화되지 않은 범위는 다음과 같다.
+트리거 시 Blender 3D 장면을 다시 렌더링하지 않는다. 등록 농경지별 배경, 농경지 강조, 범람, 공용 대피소 영상을 GitHub Release에서 한 번 설치한 뒤 계속 재사용한다.
 
-- 사용자가 등록한 실제 지적 필지 연동
-- 수리·수문 모형 기반 침수심 및 범람 범위 계산
-- 비동기 작업 큐와 실패 재시도
-- 앱, 보호자, 농업인에게 영상 자동 발송
+## 현재 지원 범위
 
-## 3. 개발 단계
+- 농경지: `OSONG-FIELD-DEMO-001`, `002`, `003`
+- 시나리오: `caution`
+- 해상도: 1280x720
+- 시각 구간: 60초
+- 최종 안내 영상: 80초
+- 대피소: 오송읍복지회관
+- 트리거 판단: 팀 백엔드 소유
 
-| 버전 | 구현 내용 |
-|---|---|
-| V1 | SRTM DEM을 이용한 강내면 실제 지형 생성 |
-| V2 | 하천·소하천·수위 관측소의 초기 3D 표현 |
-| V3 | 원통형 하천을 제거하고 지형에 붙는 면 형태로 개선 |
-| V4 | 등록 농경지 폴리곤과 농경지 확대 카메라 구현 |
-| V5 | 관심·경계·심각 단계별 침수 메시 및 농경지 영향률 계산 |
-| V6 | 5초 길이의 디지털트윈 범람 애니메이션 MP4 생성 |
-| V7 | LangGraph, 로컬 TTS, 안내 슬라이드, Blender 영상 합성 |
-| V8 | `gpt-4o-mini` 대본 생성과 `gpt-4o-mini-tts` 음성 생성 |
-| V9 | 60초 영상, 범람 반복, 농경지 확대, 마지막 정지 화면, OpenAI TTS 적용 |
-| V10~V12 | 고품질 지형·오송 파일럿·공식 침수자료·대피 경로 반영 |
-| V13 | 4개 LangGraph 에이전트, TTS 5건 비동기 병렬 생성, 사전 렌더링 본편 필수 재사용 |
-| V14 | 기존 1km 정밀 영역을 유지하고 3km × 3km 배경 지형·위성영상·공간 데이터 준비 |
-| V15 | OSM 수면 경계를 이용한 연속 하천 수면과 하천 아래 지형 마스킹 |
-| V16 | 환경부 홍수위험지도 기반 평상시·중간·최대 침수 단계와 필지 영향 표시 |
-| V17 | 한강홍수통제소 실시간 수위 위험도를 V16 시각 단계에 연결하고 오래된 데이터 차단 |
-| V18 | 기상청 05시 단기예보 PCP 24시간 누적, 공식 침수지도 필지조건, 48시간 쿨다운, Blender 정지 프리뷰와 4개 LangGraph 에이전트 60~120초 영상 제작 연결 |
+예제 농경지는 OSM 농업용지 폴리곤이며 실제 소유권 지적 필지가 아니다.
 
-## 4. 주요 기술과 사용 범위
+## 요구 환경
 
-| 기술 | 사용 여부 | 현재 역할 |
-|---|---|---|
-| Blender Python API (`bpy`) | 사용 | 지형·하천·침수·카메라 애니메이션 및 MP4 렌더링 |
-| Blender Video Sequence Editor | 사용 | 기본 영상, 안내 이미지, TTS 음성 최종 합성 |
-| LangGraph | 사용 | 역할별 에이전트의 실행 순서와 상태 전달 |
-| 멀티에이전트 구조 | 역할 분리형으로 사용 | 대본·병렬 TTS·영상제작·합성의 4개 노드 |
-| LangChain | 미사용 | 현재 코드에 LangChain Chain 또는 Runnable 구조 없음 |
-| OpenAI `gpt-4o-mini-tts` | 사용 | 한국어 안내 음성 생성 |
-| OpenAI `gpt-4o-mini` | V8에서만 사용 | 구조화된 대본 생성 실험 |
-| Pillow | 사용 | 투명 안내 오버레이와 마지막 정보 화면 생성 |
-| VWorld 하천 데이터 | 사용 | 국가하천·소하천 관리구역 위치 표현 |
-| 한강홍수통제소 OpenAPI | 일부 연동 | 수위·유량·위험 기준·추세를 스냅샷으로 저장 |
+- Python 3.11 이상
+- Blender 5.x
+- OpenAI API 키와 `gpt-4o-mini-tts` 사용 권한
+- V23 Runtime Asset Release 약 3.3GB
 
-V13과 V18은 여러 LLM이 토론하는 자율형 멀티에이전트가 아니다. 역할별 Python 함수를 4개 에이전트 노드로 구분하고 LangGraph가 상태를 전달하는 **에이전트형 제작 워크플로**이다. TTS 에이전트 내부의 5개 음성 요청만 `asyncio.gather`로 병렬 실행한다.
+macOS와 Windows 모두 지원하도록 프로젝트·Blender·글꼴·출력 경로를 자동 탐색한다. 기본 경로가 아닌 경우 `.env`에서 지정할 수 있다.
 
-## 5. 디렉터리 구조
+## 설치
 
-```text
-flood/
-├── agents/
-│   ├── guidance_v7_workflow.py
-│   ├── guidance_v8_workflow.py
-│   └── guidance_v9_workflow.py
-├── blender/
-│   ├── build_gangnae_terrain.py
-│   ├── build_gangnae_hydro_v2.py
-│   ├── build_gangnae_hydro_v3.py
-│   ├── build_gangnae_farmland_v4.py
-│   ├── build_gangnae_inundation_v5.py
-│   ├── build_gangnae_video_v6.py
-│   ├── build_gangnae_story_v9.py
-│   ├── compose_guidance_video_v9.py
-│   └── validate_guidance_video_v9.py
-├── config/
-│   ├── guidance_demo_input.json
-│   ├── hydro_stations.json
-│   ├── mvp_farmland.json
-│   └── mvp_inundation_scenarios.json
-├── data/
-│   ├── terrain/N36E127.hgt
-│   ├── source/hydro/UJ201/
-│   ├── source/hydro/UJ301/
-│   ├── processed/gangnae_hydro_geometry.json
-│   └── runtime/hydro_snapshot.json
-├── scripts/
-│   ├── prepare_gangnae_hydro.py
-│   └── fetch_hrfco_data.py
-└── output/                 # 실행 시 생성되며 Git에서는 제외
-    └── .gitkeep
+### Windows PowerShell
+
+```powershell
+git clone -b hyeokjae https://github.com/yhdbgit/flood.git
+cd flood
+py -3.11 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
+python scripts/setup_v23.py
+python scripts/verify_v23_installation.py --decode-media
 ```
 
-## 6. 공간 데이터 구성
+### macOS
 
-### 6.1 지형
-
-`data/terrain/N36E127.hgt` SRTM DEM을 사용한다.
-
-`blender/build_gangnae_terrain.py`는 다음 작업을 수행한다.
-
-1. DEM에서 파일럿 범위를 추출한다.
-2. WGS84 위도·경도를 장면 중심 기준 로컬 미터 좌표로 변환한다.
-3. 165×115 격자의 3D 지형 메시를 생성한다.
-4. DEM 고도를 Z축 높이에 적용한다.
-5. 지형 가독성을 위해 고도 차이를 2배 강조한다.
-6. 카메라, 태양광, 재질과 렌더 설정을 구성한다.
-
-현재 지형 범위는 약 4.9km × 3.4km이며 DEM 고도는 약 7~145m이다.
-
-### 6.2 하천
-
-하천 데이터는 다음 자료를 결합한다.
-
-- VWorld UJ201 국가하천·하천구역 폴리곤
-- VWorld UJ301 소하천구역 폴리곤
-- OpenStreetMap 미호강·태성천 중심선
-
-`scripts/prepare_gangnae_hydro.py`는 VWorld 원본 좌표계 EPSG:5174를 WGS84로 변환하고, 다시 Blender 로컬 미터 좌표로 변환한다. 처리 결과는 `data/processed/gangnae_hydro_geometry.json`에 저장된다.
-
-각 데이터의 의미는 다르다.
-
-- VWorld 폴리곤: 하천의 법적·관리 구역
-- OSM 중심선 리본: 화면에서 실제 수면처럼 보이도록 만든 시각적 하천
-- UJ201/UJ301 폴리곤 자체는 실제로 물이 차 있는 수면 경계가 아님
-
-### 6.3 등록 농경지
-
-현재 MVP 필지는 `config/mvp_farmland.json`에 저장되어 있다.
-
-- 필지 ID: `GANGNAE-DEMO-001`
-- 면적: 약 7,640㎡
-- 미호강 중심선과 거리: 약 450.68m
-- DEM 고도: 약 27m
-
-현재 필지는 OSM 농경지 영역 내부에서 작성한 데모 후보 필지이며 지적도 기반 확정 필지는 아니다.
-
-### 6.4 한강홍수통제소 수위 정보
-
-`scripts/fetch_hrfco_data.py`는 한강홍수통제소 OpenAPI에서 다음 정보를 수집한다.
-
-- 관측소 명칭과 위치
-- 10분 단위 수위
-- 유량
-- 관심·주의·경보·심각 기준 수위
-- 최근 수위 상승·하강 추세
-- 홍수예보 발표 여부
-
-결과는 `data/runtime/hydro_snapshot.json`에 저장된다. API 키는 `.env`에서 읽으며 JSON 또는 Blender 파일에 기록하지 않는다.
-
-현재 V9에서 수위 정보는 장면과 판단의 참고 정보로 보존되지만, 이 수위로 침수 폴리곤을 직접 계산하지는 않는다.
-
-## 7. 초기 V5 침수 범위 계산 이력
-
-V5의 침수 범위는 물리 유체 해석이나 2차원 수리 모형이 아니라 DEM과 하천 거리를 이용한 MVP 휴리스틱이다.
-
-각 지형 격자에 다음 조건을 적용한다.
-
-```text
-미호강 중심선까지의 거리 ≤ 단계별 최대 거리
-그리고
-DEM 고도 ≤ 단계별 최대 고도
+```bash
+git clone -b hyeokjae https://github.com/yhdbgit/flood.git
+cd flood
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+cp .env.example .env
+python scripts/setup_v23.py
+python scripts/verify_v23_installation.py --decode-media
 ```
 
-| 단계 | 최대 하천 거리 | 최대 DEM 고도 | 현재 필지 영향률 |
-|---|---:|---:|---:|
-| 관심 | 220m | 25m | 0% |
-| 경계 | 470m | 29m | 62.5% |
-| 심각 | 650m | 33m | 100% |
+`setup_v23.py`는 GitHub Release `v23-assets-1.0.0`의 ZIP 세 개를 내려받고 SHA-256을 확인한 뒤 `runtime_assets/v23`에 설치한다. 이미 검증된 자산이 있으면 재다운로드하지 않는다.
 
-결과는 `output/inundation_v5_field_result.json`에 저장된다. Blender 장면에는 다음 세 침수 메시가 미리 생성되어 있다.
+인터넷 없이 전달받은 ZIP을 설치할 수도 있다.
 
-```text
-Inundation_attention
-Inundation_warning
-Inundation_serious
+```bash
+python scripts/setup_v23.py --archive-dir /path/to/v23-assets-1.0.0
 ```
 
-영상에서는 이 세 메시의 표시 여부를 프레임별로 전환하여 물이 점차 확산되는 모습을 표현한다.
+## 환경변수
 
-## 8. V13 LangGraph 워크플로
+`.env.example`을 `.env`로 복사하고 API 키를 입력한다.
 
-워크플로 진입점은 `agents/guidance_v13_workflow.py`이다. START와 END를 제외한 에이전트는 정확히 4개다.
-
-```text
-START
-  → script_agent
-  → tts_agent
-  → video_production_agent
-  → composition_agent
-  → END
-```
-
-### 8.1 공용 상태
-
-각 에이전트는 `StoryState`로 다음 핵심 결과를 전달한다.
-
-```text
-run_id
-input_data
-field_result
-segments
-visual_assets
-tts_assets
-tts_meta
-manifest
-final_video
-trace
-```
-
-### 8.2 에이전트 역할
-
-#### `script_agent`
-
-- 안내 입력과 환경부 공식 침수 결과를 직접 로드한다.
-- 64초 타임라인을 5개 구간으로 나눈다.
-- 구간별 시작·종료 프레임, 제목, 부제목, 대본과 시각자료 종류를 생성한다.
-
-#### `tts_agent`
-
-- `AsyncOpenAI`를 사용한다.
-- 5개 구간 음성을 `asyncio.gather`로 동시에 요청한다.
-- 한 요청이 실패하면 해당 구간만 macOS `say`로 비동기 대체한다.
-- 음성 길이 검사, 재생속도 재생성, 별도 TTS 검증 노드는 사용하지 않는다.
-
-#### `video_production_agent`
-
-- Pillow로 구간별 오버레이와 실제 대피 경로 지도를 만든다.
-- TTS 경로와 시각자료 경로를 프레임 타임라인에 결합한다.
-- `guidance_manifest.json`, `narration_script.txt`, `guidance_subtitles.srt`를 생성한다.
-- 매니페스트는 영상 파일이 아니라 합성 에이전트가 읽는 **영상 제작 명세**다.
-
-#### `composition_agent`
-
-- `output/guidance_v13/osong_story_v13_base.mp4`가 이미 존재한다고 전제한다.
-- 기본 본편을 새로 렌더링하거나 캐시 여부를 판정하는 에이전트는 없다.
-- Blender VSE에서 사전 렌더링 본편, 오버레이, TTS를 합성해 최종 MP4를 만든다.
-- 실행 결과와 에이전트별 소요 시간을 `workflow_final_state.json`에 기록한다.
-
-## 9. 64초 영상 타임라인
-
-최종 영상은 24fps, 총 1,536프레임이다.
-
-| 시간 | 프레임 | 장면 |
-|---|---:|---|
-| 0~20초 | 1~480 | 전체 시점에서 공식 침수예상 범위 확산 |
-| 20~24초 | 481~576 | 등록 농경지 확대 |
-| 24~44초 | 577~1056 | 확대 시점에서 농경지 침수 영향 표시 |
-| 44~47초 | 1057~1128 | 침수된 농경지 화면 정지와 접근 금지 안내 |
-| 47~64초 | 1129~1536 | 실제 재해구호시설과 비 오기 전 이동 경로 안내 |
-
-TTS는 첫 프레임부터 시작하고 각 구간 시작 프레임에 맞춰 배치된다.
-
-## 10. Blender 3D 본편 정책
-
-V13의 사전 렌더링 본편은 실행 시 `output/guidance_v13/osong_story_v13_base.mp4`에 생성된다. 이 파일은 저장소에는 포함하지 않는다. 지형, 하천, 등록 농경지, 공식 침수예상 범위, 카메라 이동과 범람 시퀀스가 이 파일에 포함된다.
-
-- 원본 제작 스크립트: `blender/build_osong_story_v13.py`
-- 해상도: 960×540
-- FPS: 24
-- 워크플로 정책: 본편 파일이 준비돼 있다고 가정하고 렌더링 노드를 실행하지 않음
-- 최종 실행에서 수행하는 Blender 작업: VSE 합성만 수행
-
-본편을 새로 만들 필요가 있을 때만 제작 스크립트를 별도로 실행한다. 일반적인 대본·음성 변경은 3D 본편을 다시 렌더링하지 않는다.
-
-## 11. OpenAI TTS
-
-V13은 OpenAI `gpt-4o-mini-tts`와 비동기 클라이언트를 사용한다.
-
-- 모델: `OPENAI_TTS_MODEL`, 기본값 `gpt-4o-mini-tts`
-- 음성: `OPENAI_TTS_VOICE`, 기본값 `alloy`
-- 기본 속도: `OPENAI_TTS_SPEED_V13`, 기본값 `1.08`
-- 생성 방식: 5개 구간을 `asyncio.gather`로 병렬 요청
-- API: `/v1/audio/speech`
-- 구간별 실패 대체: macOS `say`
-
-`.env` 예시:
-
-```dotenv
-OPENAI_API_KEY=발급받은_API_키
+```env
+OPENAI_API_KEY=...
 OPENAI_TTS_MODEL=gpt-4o-mini-tts
 OPENAI_TTS_VOICE=alloy
-OPENAI_TTS_SPEED_V13=1.08
+OPENAI_TTS_SPEED_V23=1.12
 ```
 
-실제 `.env`는 Git에 포함하지 않으며 API 키를 README, JSON, Blender 파일 또는 로그에 기록하지 않는다.
+선택 설정:
 
-## 12. 최종 영상 합성
-
-`blender/compose_guidance_video_v13.py`는 `guidance_manifest.json`을 읽어 Blender VSE 타임라인을 구성한다.
-
-```text
-사전 렌더링 디지털트윈 본편 1개
-+ 구간별 오버레이 또는 대피 경로 이미지 5개
-+ 병렬 생성된 TTS 음성 5개
-→ 64초 최종 안내 MP4
+```env
+BLENDER_BIN=C:\Program Files\Blender Foundation\Blender 5.0\blender.exe
+V23_ASSET_ROOT=D:\flood-assets\v23
+V23_OUTPUT_ROOT=D:\flood-output
+V23_FONT_PATH=C:\Windows\Fonts\malgun.ttf
 ```
 
-최종 출력은 실행 시 `output/guidance_v13/osong_guidance_v13_64s.mp4`에 생성된다. 이 단계는 3D 지형을 다시 렌더링하지 않고 기존 MP4에 이미지와 음성을 합성한다.
+저장소에는 OFL 라이선스의 Noto Sans KR 글꼴이 포함되어 있어 `V23_FONT_PATH`는 보통 비워둔다.
 
-## 13. 실행 방법
+## 실행
 
-### 13.1 환경 조건
-
-- macOS
-- Blender 5.2 LTS 설치 경로: `/Applications/Blender.app`
-- Python 가상환경: `/Users/hyeokjae/Desktop/ICTCB/.venv`
-- 주요 Python 패키지: `langgraph`, `openai`, `python-dotenv`, `Pillow`
-- 공간 데이터 전처리 패키지: `pyshp`, `shapely`, `pyproj`
-
-### 13.2 최종 V13 워크플로 실행
+### macOS/Linux
 
 ```bash
-cd /Users/hyeokjae/Desktop/ICTCB/flood
-PYTHONDONTWRITEBYTECODE=1 python3 agents/guidance_v13_workflow.py
+./run_v23.sh data/v23/events/valid_forecast_and_hydrology.json
 ```
 
-실행 시 64초 사전 렌더링 본편이 이미 존재한다고 전제한다. 본편 렌더링 단계 없이 대본, 5개 병렬 TTS, 안내 이미지, 매니페스트와 최종 합성 영상만 V13 출력 폴더에 생성한다.
+### Windows
 
-### 13.3 한강홍수통제소 데이터 갱신
+```bat
+run_v23.bat data\v23\events\valid_forecast_and_hydrology.json
+```
+
+직접 실행:
 
 ```bash
-cd /Users/hyeokjae/Desktop/ICTCB/flood
-/Users/hyeokjae/Desktop/ICTCB/.venv/bin/python scripts/fetch_hrfco_data.py
+python agents/guidance_v23_workflow.py \
+  --event data/v23/events/valid_forecast_and_hydrology.json \
+  --mode production
 ```
 
-이 명령은 `.env`의 `HRFCO_API_KEY`를 읽어 `data/runtime/hydro_snapshot.json`을 갱신한다.
+결과는 기본적으로 `output/guidance_v23/<run_id>/`에 저장된다. 표준 출력 JSON의 `final_video`가 완성 MP4 경로다.
 
-## 14. 검증 결과
+## 백엔드 연결
 
-과거 V9 산출물 생성 당시 `blender/validate_guidance_video_v9.py` 검증에서 다음 항목이 통과했다. 산출물 JSON과 MP4 자체는 현재 Git에서 제외한다.
+Python 백엔드는 검증된 이벤트 객체를 직접 전달할 수 있다.
 
-- 최종 장면 이름 정상
-- MOVIE 스트립 1개
-- IMAGE 스트립 7개
-- SOUND 스트립 7개
-- 1~1440 프레임
-- 24fps, 정확히 60초
-- H.264 영상 및 AAC 음성
-- 최종 MP4 파일 정상 생성
-- Blender 장면 내부 API 키 흔적 없음
+```python
+from agents.v23_service import generate_guidance
 
-## 15. 현재 MVP의 한계
-
-현재 결과를 실제 운영 수준으로 해석하면 안 되는 부분은 다음과 같다.
-
-1. V18 API 클라이언트는 구현됐지만 현재 검증 프리뷰는 `source_mode=fixture`인 80mm 개발 입력이다.
-2. 현재 농경지는 지적도 기반 확정 필지가 아니다.
-3. V16~V18 침수 범위는 환경부 100년 빈도 홍수위험지도 참고 범위이며 강우 조건별 수리·수문 예측 결과가 아니다.
-4. 표시 침수심과 중간 단계는 시각화를 위한 값이며 특정 예보 사건의 실제 침수심을 의미하지 않는다.
-5. 한강홍수통제소 관측값은 현재 침수 폴리곤을 직접 생성하지 않는다.
-6. VWorld UJ201/UJ301은 관리구역 데이터이며 실제 수면 경계와 동일하지 않다.
-7. V18은 LangGraph 영상 제작까지 연결됐지만 현재 시각 방식은 수리모형 기반 동적 범람이 아닌 컨텍스트별 정지 화면 구성이다. 작업 큐와 사용자 발송은 아직 연결되지 않았다.
-
-## 16. 운영형 구조로 전환하기 위한 다음 단계
-
-```text
-기상청 단기예보 수집
-        ↓
-필지별 24시간 누적 강수량 판정
-        ↓
-필지별 침수심 또는 침수확률 계산
-        ↓
-발송 대상 필지 선별
-        ↓
-LangGraph V18 영상 제작 실행
-        ↓
-앱 알림·보호자 알림·영상 다운로드 제공
+result = await generate_guidance(trigger_event)
+video_path = result["final_video"]
 ```
 
-우선순위는 다음과 같다.
+Python이 아닌 백엔드는 `guidance_v23_workflow.py`를 별도 작업 프로세스로 실행하고 표준 출력 JSON을 읽으면 된다. 상세 계약은 [백엔드 연동 문서](docs/BACKEND_INTEGRATION.md)를 참고한다.
 
-1. 실제 지적 필지 등록 및 공간 교차 판정
-2. 수리해석 또는 검증된 시나리오를 V18 동적 범람 장면으로 연결
-3. 영상 제작 작업 큐와 실패 재시도 구현
-4. 농업인 및 보호자 앱 발송 기능 연결
-5. 운영 로그, 비용 한도와 재발송 정책 검증
+## 테스트
 
+```bash
+python -m unittest discover -s tests -p "test*v23*.py"
+python agents/guidance_v23_workflow.py --mode plan
+```
+
+실제 MP4 생성 전 설치 검증:
+
+```bash
+python scripts/verify_v23_installation.py --require-openai --decode-media
+```
+
+## 보안 및 운영 주의
+
+- `.env`, API 키, 생성 영상과 TTS는 Git에 포함하지 않는다.
+- 동일 `event_id`는 동일 `run_id`로 계산된다. 백엔드 작업 큐에서도 중복 요청을 차단해야 한다.
+- V23은 팀 백엔드가 선택한 시나리오를 소비할 뿐 강우·수위 임계값을 다시 판단하지 않는다.
+- 완성 MP4는 로컬 경로이므로 팀 백엔드가 객체 저장소에 업로드한 뒤 URL을 사용자에게 제공해야 한다.
+- Windows 배포 전 `--decode-media` 검사를 실행해 Blender의 QTRLE 알파 MOV 디코딩을 확인한다.
+
+## 주요 문서
+
+- [백엔드 연동](docs/BACKEND_INTEGRATION.md)
+- [자산 설치 및 Release 구성](docs/ASSET_SETUP.md)
+- [V23 구조](docs/V23_ARCHITECTURE.md)

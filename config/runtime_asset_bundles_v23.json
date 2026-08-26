@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "release_tag": "v23-assets-1.0.0",
+  "bundles": [
+    {
+      "filename": "v23-assets-core.zip",
+      "bytes": 979564520,
+      "sha256": "ae5faea650b42a760e02e780469551439d79452edeb2cbb94bb04203d8c7bf08",
+      "url": "https://github.com/yhdbgit/flood/releases/download/v23-assets-1.0.0/v23-assets-core.zip"
+    },
+    {
+      "filename": "v23-assets-flood-a.zip",
+      "bytes": 1258021776,
+      "sha256": "f306f194915e2eeb9b1df7229eb533bacbdbddb485b2cdda75fecc0057874ff4",
+      "url": "https://github.com/yhdbgit/flood/releases/download/v23-assets-1.0.0/v23-assets-flood-a.zip"
+    },
+    {
+      "filename": "v23-assets-flood-b.zip",
+      "bytes": 1265054547,
+      "sha256": "dfa58fa1dcd84fc7c2f800c2a135aa70023ccdcd124a7e4cd4bd99c741487fe3",
+      "url": "https://github.com/yhdbgit/flood/releases/download/v23-assets-1.0.0/v23-assets-flood-b.zip"
+    }
+  ]
+}

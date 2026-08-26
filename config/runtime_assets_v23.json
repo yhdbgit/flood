@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "asset_bundle_version": "v23-assets-1.0.0",
+  "resolution": [1280, 720],
+  "fps": 16,
+  "assets": [
+    {"asset_id": "common_background", "relative_path": "common/common_background_v23_60s.mp4", "bytes": 18961850, "sha256": "5c2bf3eee859889b67396c5366da2390e7687f993d732a7f431f5cf071ae31bc"},
+    {"asset_id": "field_001_background", "relative_path": "backgrounds/field_001_clean_background.mp4", "bytes": 11515104, "sha256": "e8e87d2a6015c9cdcf875ecfdd8cba2f4a24d335554b8e7a6a7e5b6ebb53f7e9"},
+    {"asset_id": "field_002_background", "relative_path": "backgrounds/field_002_clean_background.mp4", "bytes": 6988138, "sha256": "dba0623a7130e4b546dd767d76f2f9e6ed8626d9b609dac885b64c3f18a42527"},
+    {"asset_id": "field_003_background", "relative_path": "backgrounds/field_003_clean_background.mp4", "bytes": 7610522, "sha256": "8548925a1e52e4ab627e9668438c6c427eaae5035fafd564fd6e0b630fb9b41e"},
+    {"asset_id": "field_001_overlay", "relative_path": "field_overlays/field_001_overlay_rgba.mov", "bytes": 486727060, "sha256": "37190b5c665fe391a6f09d92d4b35070002ed4b391dd187eeac9e0b8d7176d97"},
+    {"asset_id": "field_002_overlay", "relative_path": "field_overlays/field_002_overlay_rgba.mov", "bytes": 182046346, "sha256": "7b8402726c2681a53a9f937890e26bc5fdd013f37ef7da2f730798d5ee502b55"},
+    {"asset_id": "field_003_overlay", "relative_path": "field_overlays/field_003_overlay_rgba.mov", "bytes": 234826671, "sha256": "83d9015fac6d149b7ab24f4fb7eedc8f7e5540459a54134df0f745b677585ca6"},
+    {"asset_id": "field_001_flood", "relative_path": "flood_layers/field_001_focus_flood.mov", "bytes": 566837259, "sha256": "d4dd30fe9d7cb768b91c2258d0d2f82e146cd55cced2bbb0985b296c6630fa06"},
+    {"asset_id": "field_002_flood", "relative_path": "flood_layers/field_002_focus_flood.mov", "bytes": 664107104, "sha256": "6f6a4ca3d03aca71e74a0a817224ef029d80998516ff2ef19144a19785b66c6d"},
+    {"asset_id": "field_003_flood", "relative_path": "flood_layers/field_003_focus_flood.mov", "bytes": 1265054335, "sha256": "06c6414d7fae2bc67a9ce7a7e5918f4af72fe67348f8dd83ac9387bf878a48ab"},
+    {"asset_id": "shared_shelter_flood", "relative_path": "flood_layers/shared_shelter_hold.mov", "bytes": 27076825, "sha256": "7c4d5caf9029a816f26c7b179b596f3eb63dc66a31f65d72d0c62bbf097d4a75"},
+    {"asset_id": "shared_shelter_overlay", "relative_path": "shelter/shared_shelter_overlay_rgba.mov", "bytes": 30887247, "sha256": "8eb4b3758e851e0988fc6acb3b2d8fe30bb0f9792b36f7af99f9a6be0d0a4814"}
+  ],
+  "selection_by_field_id": {
+    "OSONG-FIELD-DEMO-001": {"field_background": "field_001_background", "field_overlay": "field_001_overlay", "field_flood": "field_001_flood"},
+    "OSONG-FIELD-DEMO-002": {"field_background": "field_002_background", "field_overlay": "field_002_overlay", "field_flood": "field_002_flood"},
+    "OSONG-FIELD-DEMO-003": {"field_background": "field_003_background", "field_overlay": "field_003_overlay", "field_flood": "field_003_flood"}
+  },
+  "shared": {
+    "common_background": "common_background",
+    "shelter_flood": "shared_shelter_flood",
+    "shelter_overlay": "shared_shelter_overlay"
+  }
+}
