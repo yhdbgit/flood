@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yhdbgit/flood/schema/trigger_event_v23.schema.json",
+  "title": "Flood Guidance Trigger Event V23",
+  "description": "A trusted video-generation request emitted after the upstream trigger service has already made its decision.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_type",
+    "event_id",
+    "user_id",
+    "field_id",
+    "scenario_id",
+    "triggered_at",
+    "requested_at",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "event_type": {"const": "flood_guidance_requested"},
+    "event_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+    "user_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+    "field_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+    "scenario_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+    "triggered_at": {"type": "string", "format": "date-time"},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "source": {
+      "type": "object",
+      "required": ["system_id"],
+      "properties": {
+        "system_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+        "trigger_version": {"type": "string", "minLength": 1, "maxLength": 64}
+      },
+      "additionalProperties": false
+    },
+    "forecast_summary": {
+      "type": "object",
+      "properties": {
+        "rain_24h_mm": {"type": "number", "minimum": 0, "maximum": 2000},
+        "expected_start_at": {"type": "string", "format": "date-time"},
+        "summary_text": {"type": "string", "maxLength": 500}
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "hydrology_summary": {
+      "type": "object",
+      "required": ["station_id", "observed_at"],
+      "properties": {
+        "station_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "water_level_m": {"type": "number", "minimum": -100, "maximum": 1000},
+        "alert_level": {"type": "string", "minLength": 1, "maxLength": 64}
+      },
+      "additionalProperties": false
+    },
+    "delivery": {
+      "type": "object",
+      "properties": {
+        "locale": {"type": "string", "minLength": 2, "maxLength": 32},
+        "recipient_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 128},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {"type": "object"}
+  },
+  "anyOf": [
+    {"required": ["forecast_summary"]},
+    {"required": ["hydrology_summary"]}
+  ],
+  "additionalProperties": false
+}

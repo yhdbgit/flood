@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0",
+  "status": "passed",
+  "scene_pack_id": "OSONG-MIHO-SCENE-PACK-V23",
+  "asset_count": 7,
+  "items": [
+    {
+      "asset_id": "field_001_clean_background",
+      "asset_type": "field_clean_background",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/backgrounds/field_001_clean_background_0001_0719.mp4",
+      "bytes": 11515104,
+      "sha256": "e8e87d2a6015c9cdcf875ecfdd8cba2f4a24d335554b8e7a6a7e5b6ebb53f7e9",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": false,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "field_001_overlay_rgba",
+      "asset_type": "field_overlay",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/overlays/field_001_overlay_rgba_0001_0719.mov",
+      "bytes": 486727060,
+      "sha256": "37190b5c665fe391a6f09d92d4b35070002ed4b391dd187eeac9e0b8d7176d97",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": true,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true,
+        "rgba_channels": true,
+        "straight_alpha": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "field_002_clean_background",
+      "asset_type": "field_clean_background",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/backgrounds/field_002_clean_background_0001_0719.mp4",
+      "bytes": 6988138,
+      "sha256": "dba0623a7130e4b546dd767d76f2f9e6ed8626d9b609dac885b64c3f18a42527",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": false,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "field_002_overlay_rgba",
+      "asset_type": "field_overlay",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/overlays/field_002_overlay_rgba_0001_0719.mov",
+      "bytes": 182046346,
+      "sha256": "7b8402726c2681a53a9f937890e26bc5fdd013f37ef7da2f730798d5ee502b55",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": true,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true,
+        "rgba_channels": true,
+        "straight_alpha": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "field_003_clean_background",
+      "asset_type": "field_clean_background",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/backgrounds/field_003_clean_background_0001_0719.mp4",
+      "bytes": 7610522,
+      "sha256": "8548925a1e52e4ab627e9668438c6c427eaae5035fafd564fd6e0b630fb9b41e",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": false,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "field_003_overlay_rgba",
+      "asset_type": "field_overlay",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/overlays/field_003_overlay_rgba_0001_0719.mov",
+      "bytes": 234826671,
+      "sha256": "83d9015fac6d149b7ab24f4fb7eedc8f7e5540459a54134df0f745b677585ca6",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 719,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": true,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true,
+        "rgba_channels": true,
+        "straight_alpha": true
+      },
+      "valid": true
+    },
+    {
+      "asset_id": "shared_shelter_overlay_rgba",
+      "asset_type": "shelter_overlay",
+      "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/composition_assets/v23/overlays/shared_shelter_overlay_rgba_0720_0960.mov",
+      "bytes": 30887247,
+      "sha256": "8eb4b3758e851e0988fc6acb3b2d8fe30bb0f9792b36f7af99f9a6be0d0a4814",
+      "resolution": [
+        1280,
+        720
+      ],
+      "frame_duration": 241,
+      "channels": 4,
+      "alpha_mode": "STRAIGHT",
+      "transparent_background": true,
+      "checks": {
+        "resolution": true,
+        "frame_duration": true,
+        "image_source": true,
+        "movie_source": true,
+        "manifest_hash": true,
+        "manifest_bytes": true,
+        "rgba_channels": true,
+        "straight_alpha": true
+      },
+      "valid": true
+    }
+  ],
+  "failures": []
+}

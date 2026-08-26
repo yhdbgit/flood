@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yhdbgit/flood/schema/field_registry_v23.schema.json",
+  "title": "Registered Field Registry V23",
+  "type": "object",
+  "required": ["schema_version", "registry_id", "crs", "fields"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "crs": {"const": "EPSG:4326"},
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "field_id",
+          "owner_user_id",
+          "display_name",
+          "registration_status",
+          "geometry_accuracy",
+          "geometry",
+          "derived_metrics",
+          "asset_binding",
+          "shelter",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "field_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+          "owner_user_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9._:-]+$"},
+          "display_name": {"type": "string", "minLength": 1, "maxLength": 200},
+          "registration_status": {"enum": ["demo_registered", "registered", "disabled"]},
+          "geometry_accuracy": {"type": "string", "minLength": 1},
+          "geometry": {"$ref": "#/$defs/polygon"},
+          "derived_metrics": {
+            "type": "object",
+            "required": [
+              "area_m2",
+              "centre_wgs84",
+              "bounds_wgs84",
+              "official_flood_intersection_area_m2",
+              "official_flood_intersection_percent",
+              "official_flood_intersection_source"
+            ],
+            "properties": {
+              "area_m2": {"type": "number", "exclusiveMinimum": 0},
+              "centre_wgs84": {"$ref": "#/$defs/position"},
+              "bounds_wgs84": {
+                "type": "array",
+                "prefixItems": [
+                  {"type": "number"},
+                  {"type": "number"},
+                  {"type": "number"},
+                  {"type": "number"}
+                ],
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "official_flood_intersection_area_m2": {"type": "number", "minimum": 0},
+              "official_flood_intersection_percent": {"type": "number", "minimum": 0, "maximum": 100},
+              "official_flood_intersection_source": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
+          "asset_binding": {
+            "type": "object",
+            "required": ["scene_zone_id", "scene_pack_id", "camera_profile_id", "preparation_status"],
+            "properties": {
+              "scene_zone_id": {"type": "string", "minLength": 1},
+              "scene_pack_id": {"type": "string", "minLength": 1},
+              "camera_profile_id": {"type": ["string", "null"]},
+              "preparation_status": {"enum": ["pending", "ready", "failed"]}
+            },
+            "additionalProperties": false
+          },
+          "shelter": {
+            "type": "object",
+            "required": ["shelter_id", "name", "location_wgs84", "distance_m", "source"],
+            "properties": {
+              "shelter_id": {"type": "string", "minLength": 1},
+              "name": {"type": "string", "minLength": 1},
+              "location_wgs84": {"$ref": "#/$defs/position"},
+              "distance_m": {"type": "number", "minimum": 0},
+              "source": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
+          "source": {
+            "type": "object",
+            "required": ["provider", "element_type", "element_id", "tag"],
+            "properties": {
+              "provider": {"type": "string", "minLength": 1},
+              "element_type": {"type": "string", "minLength": 1},
+              "element_id": {"type": "integer", "minimum": 1},
+              "tag": {"type": "string", "minLength": 1},
+              "derivation": {"type": "string"}
+            },
+            "additionalProperties": false
+          },
+          "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "position": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "number", "minimum": -180, "maximum": 180},
+        {"type": "number", "minimum": -90, "maximum": 90}
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "polygon": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "Polygon"},
+        "coordinates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "items": {"$ref": "#/$defs/position"}
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

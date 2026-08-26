@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "event_type": "flood_guidance_requested",
+  "event_id": "FLOOD-2026-08-27-OSONG-002",
+  "user_id": "USER-DEMO-002",
+  "field_id": "OSONG-FIELD-DEMO-002",
+  "scenario_id": "caution",
+  "triggered_at": "2026-08-26T06:00:00+09:00",
+  "requested_at": "2026-08-26T06:00:02+09:00",
+  "source": {
+    "system_id": "team-trigger-service",
+    "trigger_version": "v1"
+  },
+  "forecast_summary": {
+    "rain_24h_mm": 80,
+    "expected_start_at": "2026-08-27T05:00:00+09:00",
+    "summary_text": "내일 새벽부터 강한 비가 예상됩니다."
+  },
+  "hydrology_summary": {
+    "station_id": "3011685",
+    "observed_at": "2026-08-26T05:50:00+09:00",
+    "water_level_m": 1.42,
+    "alert_level": "normal"
+  },
+  "delivery": {
+    "locale": "ko-KR",
+    "recipient_ids": ["USER-DEMO-002", "GUARDIAN-DEMO-002"]
+  }
+}

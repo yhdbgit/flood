@@ -1,0 +1,617 @@
+{
+  "schema_version": "1.0",
+  "status": "previews_rendered_review_pending",
+  "scene_pack_id": "OSONG-MIHO-SCENE-PACK-V23",
+  "source_blend": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_common_v23.blend",
+  "source_blend_sha256": "4295818ecb4208d532890b818551d1a01d1480bbee5af1c89da4beba406cbe09",
+  "source_blend_unchanged": true,
+  "blend_path": "/Users/hyeokjae/Desktop/ICTCB/flood/blender/osong_personalization_v23.blend",
+  "blend_bytes": 58098206,
+  "blend_sha256": "fff771427a42fdd74ab5396d069178ae0551539fc8d86e2771107f3409dd58d2",
+  "field_asset_count": 3,
+  "field_assets": [
+    {
+      "field_id": "OSONG-FIELD-DEMO-001",
+      "owner_user_id": "USER-DEMO-001",
+      "overlay_asset_id": "V23-FIELD-OVERLAY-OSONG-FIELD-DEMO-001",
+      "collection": "V23_FIELD_OSONG_FIELD_DEMO_001",
+      "objects": [
+        "FieldFill_OSONG-FIELD-DEMO-001_V23",
+        "FieldBoundary_OSONG-FIELD-DEMO-001_V23",
+        "FieldLabel_OSONG-FIELD-DEMO-001_V23"
+      ],
+      "polygon_vertex_count": 8,
+      "terrain_sources": [
+        "Terrain_Osong_FieldRiver_HQ_1500m_V21"
+      ],
+      "ground_z_scene_m": 25.831,
+      "rgba_view_layer": "V23_FIELD_001_RGBA",
+      "composite_view_layer": "V23_FIELD_001_COMPOSITE",
+      "camera_profile_id": "V23-OSONG-FIELD-DEMO-001-CAMERA",
+      "camera_object": "Camera_OSONG-FIELD-DEMO-001_V23",
+      "camera_target_object": "CameraTarget_OSONG-FIELD-DEMO-001_V23",
+      "camera_keyframes": [
+        {
+          "frame": 1,
+          "shot": "selected_field_overview_start",
+          "location": [
+            -1060.135,
+            -916.346,
+            1494.015
+          ],
+          "lens_mm": 44.0
+        },
+        {
+          "frame": 120,
+          "shot": "selected_field_first_flood_overview",
+          "location": [
+            -1060.135,
+            -916.346,
+            1494.015
+          ],
+          "lens_mm": 46.0
+        },
+        {
+          "frame": 240,
+          "shot": "selected_field_first_flood_end",
+          "location": [
+            -943.348,
+            -816.243,
+            1376.56
+          ],
+          "lens_mm": 48.0
+        },
+        {
+          "frame": 241,
+          "shot": "selected_field_reset_approach",
+          "location": [
+            -875.601,
+            -625.136,
+            1062.256
+          ],
+          "lens_mm": 49.0
+        },
+        {
+          "frame": 320,
+          "shot": "field_focus_arrival",
+          "location": [
+            -821.432,
+            -495.131,
+            842.787
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 400,
+          "shot": "field_focus_hold",
+          "location": [
+            -821.432,
+            -495.131,
+            842.787
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 600,
+          "shot": "field_close_hold",
+          "location": [
+            -705.872,
+            -365.127,
+            679.396
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 640,
+          "shot": "field_segment_end",
+          "location": [
+            -705.872,
+            -365.127,
+            679.396
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 719,
+          "shot": "selected_field_zoom_out_end",
+          "location": [
+            -1060.135,
+            -916.346,
+            1494.015
+          ],
+          "lens_mm": 46.0
+        }
+      ],
+      "flood_collection": "V23_FIELD_FLOOD_OSONG_FIELD_DEMO_001",
+      "flood_objects": [
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_01_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_02_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_03_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_04_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_05_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_06_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_07_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_08_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_09_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-001_Step_10_V23"
+      ],
+      "flood_rgba_view_layer": "V23_FLOOD_001_RGBA",
+      "official_field_intersection_percent": 85.0084
+    },
+    {
+      "field_id": "OSONG-FIELD-DEMO-002",
+      "owner_user_id": "USER-DEMO-002",
+      "overlay_asset_id": "V23-FIELD-OVERLAY-OSONG-FIELD-DEMO-002",
+      "collection": "V23_FIELD_OSONG_FIELD_DEMO_002",
+      "objects": [
+        "FieldFill_OSONG-FIELD-DEMO-002_V23",
+        "FieldBoundary_OSONG-FIELD-DEMO-002_V23",
+        "FieldLabel_OSONG-FIELD-DEMO-002_V23"
+      ],
+      "polygon_vertex_count": 19,
+      "terrain_sources": [
+        "Terrain_Osong_Regional_12km"
+      ],
+      "ground_z_scene_m": 25.364,
+      "rgba_view_layer": "V23_FIELD_002_RGBA",
+      "composite_view_layer": "V23_FIELD_002_COMPOSITE",
+      "camera_profile_id": "V23-OSONG-FIELD-DEMO-002-CAMERA",
+      "camera_object": "Camera_OSONG-FIELD-DEMO-002_V23",
+      "camera_target_object": "CameraTarget_OSONG-FIELD-DEMO-002_V23",
+      "camera_keyframes": [
+        {
+          "frame": 1,
+          "shot": "selected_field_overview_start",
+          "location": [
+            392.59,
+            -1374.009,
+            1292.359
+          ],
+          "lens_mm": 44.0
+        },
+        {
+          "frame": 120,
+          "shot": "selected_field_first_flood_overview",
+          "location": [
+            392.59,
+            -1374.009,
+            1292.359
+          ],
+          "lens_mm": 46.0
+        },
+        {
+          "frame": 240,
+          "shot": "selected_field_first_flood_end",
+          "location": [
+            493.374,
+            -1287.623,
+            1190.999
+          ],
+          "lens_mm": 48.0
+        },
+        {
+          "frame": 241,
+          "shot": "selected_field_reset_approach",
+          "location": [
+            551.837,
+            -1122.705,
+            919.764
+          ],
+          "lens_mm": 49.0
+        },
+        {
+          "frame": 320,
+          "shot": "field_focus_arrival",
+          "location": [
+            598.583,
+            -1010.514,
+            599.363
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 400,
+          "shot": "field_focus_hold",
+          "location": [
+            598.583,
+            -1010.514,
+            599.363
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 600,
+          "shot": "field_close_hold",
+          "location": [
+            698.307,
+            -898.325,
+            484.563
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 640,
+          "shot": "field_segment_end",
+          "location": [
+            698.307,
+            -898.325,
+            484.563
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 719,
+          "shot": "selected_field_zoom_out_end",
+          "location": [
+            392.59,
+            -1374.009,
+            1292.359
+          ],
+          "lens_mm": 46.0
+        }
+      ],
+      "flood_collection": "V23_FIELD_FLOOD_OSONG_FIELD_DEMO_002",
+      "flood_objects": [
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_01_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_02_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_03_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_04_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_05_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_06_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_07_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_08_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_09_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-002_Step_10_V23"
+      ],
+      "flood_rgba_view_layer": "V23_FLOOD_002_RGBA",
+      "official_field_intersection_percent": 99.9994
+    },
+    {
+      "field_id": "OSONG-FIELD-DEMO-003",
+      "owner_user_id": "USER-DEMO-003",
+      "overlay_asset_id": "V23-FIELD-OVERLAY-OSONG-FIELD-DEMO-003",
+      "collection": "V23_FIELD_OSONG_FIELD_DEMO_003",
+      "objects": [
+        "FieldFill_OSONG-FIELD-DEMO-003_V23",
+        "FieldBoundary_OSONG-FIELD-DEMO-003_V23",
+        "FieldLabel_OSONG-FIELD-DEMO-003_V23"
+      ],
+      "polygon_vertex_count": 4,
+      "terrain_sources": [
+        "Terrain_Osong_Regional_12km"
+      ],
+      "ground_z_scene_m": 28.223,
+      "rgba_view_layer": "V23_FIELD_003_RGBA",
+      "composite_view_layer": "V23_FIELD_003_COMPOSITE",
+      "camera_profile_id": "V23-OSONG-FIELD-DEMO-003-CAMERA",
+      "camera_object": "Camera_OSONG-FIELD-DEMO-003_V23",
+      "camera_target_object": "CameraTarget_OSONG-FIELD-DEMO-003_V23",
+      "camera_keyframes": [
+        {
+          "frame": 1,
+          "shot": "selected_field_overview_start",
+          "location": [
+            -478.886,
+            1904.698,
+            1102.139
+          ],
+          "lens_mm": 44.0
+        },
+        {
+          "frame": 120,
+          "shot": "selected_field_first_flood_overview",
+          "location": [
+            -478.886,
+            1904.698,
+            1102.139
+          ],
+          "lens_mm": 46.0
+        },
+        {
+          "frame": 240,
+          "shot": "selected_field_first_flood_end",
+          "location": [
+            -393.461,
+            1977.92,
+            1016.226
+          ],
+          "lens_mm": 48.0
+        },
+        {
+          "frame": 241,
+          "shot": "selected_field_reset_approach",
+          "location": [
+            -343.907,
+            2117.706,
+            786.325
+          ],
+          "lens_mm": 49.0
+        },
+        {
+          "frame": 320,
+          "shot": "field_focus_arrival",
+          "location": [
+            -304.284,
+            2212.799,
+            570.468
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 400,
+          "shot": "field_focus_hold",
+          "location": [
+            -304.284,
+            2212.799,
+            570.468
+          ],
+          "lens_mm": 54.0
+        },
+        {
+          "frame": 600,
+          "shot": "field_close_hold",
+          "location": [
+            -219.757,
+            2307.892,
+            462.019
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 640,
+          "shot": "field_segment_end",
+          "location": [
+            -219.757,
+            2307.892,
+            462.019
+          ],
+          "lens_mm": 56.0
+        },
+        {
+          "frame": 719,
+          "shot": "selected_field_zoom_out_end",
+          "location": [
+            -478.886,
+            1904.698,
+            1102.139
+          ],
+          "lens_mm": 46.0
+        }
+      ],
+      "flood_collection": "V23_FIELD_FLOOD_OSONG_FIELD_DEMO_003",
+      "flood_objects": [
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_01_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_02_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_03_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_04_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_05_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_06_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_07_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_08_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_09_V23",
+        "FieldFlood_OSONG-FIELD-DEMO-003_Step_10_V23"
+      ],
+      "flood_rgba_view_layer": "V23_FLOOD_003_RGBA",
+      "official_field_intersection_percent": 100.0
+    }
+  ],
+  "selection_contract": {
+    "one_scene_pack_contains_multiple_fields": true,
+    "render_exactly_one_requested_field_overlay": true,
+    "camera_profile_selected_by_field_id": true,
+    "trigger_time_full_blender_render": false
+  },
+  "previews": {
+    "status": "rendered_visual_review_pending",
+    "resolution": [
+      320,
+      180
+    ],
+    "elapsed_seconds": 8.441,
+    "items": [
+      {
+        "view_layer": "V23_FIELD_001_COMPOSITE",
+        "frame": 1,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_composite_001.png",
+        "bytes": 145341,
+        "sha256": "36189d5689985be8cbed6a1c8c962cec40747f6507308c9eee9afbb37e8ffe2c",
+        "elapsed_seconds": 0.905,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "selected_field_overview_start"
+      },
+      {
+        "view_layer": "V23_FIELD_001_COMPOSITE",
+        "frame": 240,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_composite_240.png",
+        "bytes": 142412,
+        "sha256": "caeaa18bb1173e4483f8b75b13c17a2b18039a1f5b9de4bdcce5455574e38ca1",
+        "elapsed_seconds": 0.56,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "selected_field_first_flood_end"
+      },
+      {
+        "view_layer": "V23_FIELD_001_COMPOSITE",
+        "frame": 400,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_composite_400.png",
+        "bytes": 137123,
+        "sha256": "ec7a2fc7039d3ded11fbc16504c7f221133885d7678d1edec57abff1667b7db3",
+        "elapsed_seconds": 0.485,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "selected_field_focus"
+      },
+      {
+        "view_layer": "V23_FIELD_001_COMPOSITE",
+        "frame": 600,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_composite_600.png",
+        "bytes": 135926,
+        "sha256": "d1481551b80cf688641bd6b18b160ed45ec54af6e6c36c8598ca35e8a5eb23cc",
+        "elapsed_seconds": 0.574,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "selected_field_close"
+      },
+      {
+        "view_layer": "V23_FIELD_001_COMPOSITE",
+        "frame": 719,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_composite_719.png",
+        "bytes": 144759,
+        "sha256": "8c725826c503a427113e68b0b4d75de7c173e0bb7bb1fdd55e97566f82c14716",
+        "elapsed_seconds": 0.571,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "selected_field_zoom_out_end"
+      },
+      {
+        "view_layer": "V23_FIELD_001_RGBA",
+        "frame": 400,
+        "transparent_background": true,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_001_rgba_400.png",
+        "bytes": 54493,
+        "sha256": "2680a5614acf20839e637239344be7ced6a6d9600e6a8c8b29d2d77714579390",
+        "elapsed_seconds": 0.2,
+        "field_id": "OSONG-FIELD-DEMO-001",
+        "preview_role": "field_overlay_rgba"
+      },
+      {
+        "view_layer": "V23_FIELD_002_COMPOSITE",
+        "frame": 1,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_composite_001.png",
+        "bytes": 133322,
+        "sha256": "e424d5943270b46d9d8235fa25a22490a2466035d94ebaa980d2c7fa2b0d4f22",
+        "elapsed_seconds": 0.494,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "selected_field_overview_start"
+      },
+      {
+        "view_layer": "V23_FIELD_002_COMPOSITE",
+        "frame": 240,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_composite_240.png",
+        "bytes": 129130,
+        "sha256": "80c6aa6b54747eacc3af0506128cbff84730336779317b4400139c775c5b6ee0",
+        "elapsed_seconds": 0.446,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "selected_field_first_flood_end"
+      },
+      {
+        "view_layer": "V23_FIELD_002_COMPOSITE",
+        "frame": 400,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_composite_400.png",
+        "bytes": 119085,
+        "sha256": "1a49f7e630d067b127b723f65012106102b769be9ec8c67eb48d1e1c4aaa732c",
+        "elapsed_seconds": 0.533,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "selected_field_focus"
+      },
+      {
+        "view_layer": "V23_FIELD_002_COMPOSITE",
+        "frame": 600,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_composite_600.png",
+        "bytes": 116690,
+        "sha256": "952a4559bf34709a51cdaea784ba3524a30e4e9096709174034e65e62be5a15c",
+        "elapsed_seconds": 0.509,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "selected_field_close"
+      },
+      {
+        "view_layer": "V23_FIELD_002_COMPOSITE",
+        "frame": 719,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_composite_719.png",
+        "bytes": 132640,
+        "sha256": "dce6b13c9ec1cacdb4b7ca63629184f19c60b07737976b44c3aa7885e170ebc1",
+        "elapsed_seconds": 0.485,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "selected_field_zoom_out_end"
+      },
+      {
+        "view_layer": "V23_FIELD_002_RGBA",
+        "frame": 400,
+        "transparent_background": true,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_002_rgba_400.png",
+        "bytes": 32184,
+        "sha256": "eae5b12ddf3015f9a84610bc8e9b2f2124fe02a1dc6c12b5fd6a14bcfe2f5c10",
+        "elapsed_seconds": 0.211,
+        "field_id": "OSONG-FIELD-DEMO-002",
+        "preview_role": "field_overlay_rgba"
+      },
+      {
+        "view_layer": "V23_FIELD_003_COMPOSITE",
+        "frame": 1,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_composite_001.png",
+        "bytes": 129932,
+        "sha256": "96abf050662bf51b02cb5add7ef103cc3a8bfcbc92fcac6164b20eac3719bcd6",
+        "elapsed_seconds": 0.43,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "selected_field_overview_start"
+      },
+      {
+        "view_layer": "V23_FIELD_003_COMPOSITE",
+        "frame": 240,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_composite_240.png",
+        "bytes": 124512,
+        "sha256": "274f879f9b91dfb63b25569da64632a1674f9179b3473524973a55a0a26c38f9",
+        "elapsed_seconds": 0.352,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "selected_field_first_flood_end"
+      },
+      {
+        "view_layer": "V23_FIELD_003_COMPOSITE",
+        "frame": 400,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_composite_400.png",
+        "bytes": 113202,
+        "sha256": "deb92e5e4811e961647f7196bffc9ddaa62f6486b1c1aab946c202814d27b363",
+        "elapsed_seconds": 0.421,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "selected_field_focus"
+      },
+      {
+        "view_layer": "V23_FIELD_003_COMPOSITE",
+        "frame": 600,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_composite_600.png",
+        "bytes": 109766,
+        "sha256": "0dfad6ff6eb80b3aa74dd6076ea62af186cc48470f080e177aaa90f2eb1d73dc",
+        "elapsed_seconds": 0.407,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "selected_field_close"
+      },
+      {
+        "view_layer": "V23_FIELD_003_COMPOSITE",
+        "frame": 719,
+        "transparent_background": false,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_composite_719.png",
+        "bytes": 128508,
+        "sha256": "94a9c811dd34c1289a4c4392ba9fc075f9b11d5ab43dccff8e927472f838cf5e",
+        "elapsed_seconds": 0.434,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "selected_field_zoom_out_end"
+      },
+      {
+        "view_layer": "V23_FIELD_003_RGBA",
+        "frame": 400,
+        "transparent_background": true,
+        "path": "/Users/hyeokjae/Desktop/ICTCB/flood/output/field_assets/v23/previews/field_003_rgba_400.png",
+        "bytes": 35069,
+        "sha256": "053401a805e625902d0e9bebfb9424a5f6e281011894c5ec5e060718d2d0188c",
+        "elapsed_seconds": 0.213,
+        "field_id": "OSONG-FIELD-DEMO-003",
+        "preview_role": "field_overlay_rgba"
+      }
+    ]
+  },
+  "limitations": [
+    "Demo geometries are OSM farmland polygons, not cadastral ownership parcels.",
+    "Field overlays communicate registration and focus only; they do not calculate flood damage.",
+    "Fields outside the 1.5 km HQ core use the lower-detail regional terrain until another HQ tile is prepared."
+  ]
+}

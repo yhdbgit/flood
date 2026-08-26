@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yhdbgit/flood/schema/scene_pack_registry_v23.schema.json",
+  "title": "Scene Pack Registry V23",
+  "type": "object",
+  "required": ["schema_version", "registry_id", "scene_packs"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "scene_packs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "scene_pack_id",
+          "scene_version",
+          "status",
+          "display_name",
+          "scene_zone",
+          "source_assets",
+          "camera_profiles",
+          "scenario_catalog",
+          "shelters",
+          "water_level_stations",
+          "v23_personalization_assets",
+          "reuse_policy",
+          "limitations"
+        ],
+        "properties": {
+          "scene_pack_id": {"type": "string", "minLength": 1, "maxLength": 128},
+          "scene_version": {"type": "string", "minLength": 1},
+          "status": {"enum": ["source_ready_personalization_pending", "layered_scene_ready_media_pending", "field_personalization_ready_flood_sequence_pending", "semantic_personalization_proofs_ready_media_pending", "personalization_and_flood_assets_ready", "event_time_composition_ready", "ready", "disabled"]},
+          "display_name": {"type": "string", "minLength": 1},
+          "scene_zone": {
+            "type": "object",
+            "required": ["scene_zone_id", "administrative_area", "projected_crs", "coordinate_origin_utm52n", "bounds_wgs84", "hq_core_bounds_wgs84"],
+            "properties": {
+              "scene_zone_id": {"type": "string", "minLength": 1},
+              "administrative_area": {"type": "string", "minLength": 1},
+              "projected_crs": {"const": "EPSG:32652"},
+              "coordinate_origin_utm52n": {"$ref": "#/$defs/pair"},
+              "bounds_wgs84": {"$ref": "#/$defs/bounds"},
+              "hq_core_bounds_wgs84": {"$ref": "#/$defs/bounds"},
+              "regional_size_m": {"$ref": "#/$defs/pair"},
+              "hq_core_size_m": {"$ref": "#/$defs/pair"}
+            },
+            "additionalProperties": false
+          },
+          "source_assets": {
+            "type": "object",
+            "required": ["blend", "reference_video", "terrain_context", "shelter_manifest"],
+            "properties": {
+              "blend": {"$ref": "#/$defs/fileAsset"},
+              "reference_video": {"$ref": "#/$defs/fileAsset"},
+              "terrain_context": {"type": "string", "minLength": 1},
+              "shelter_manifest": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
+          "camera_profiles": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+          "scenario_catalog": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+          "shelters": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+          "water_level_stations": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+          "v23_personalization_assets": {"type": "object"},
+          "reuse_policy": {"type": "object"},
+          "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "pair": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "bounds": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}, {"type": "number"}],
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "fileAsset": {
+      "type": "object",
+      "required": ["path", "bytes", "sha256", "role", "eligible_for_v23_common_reuse"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "role": {"type": "string", "minLength": 1},
+        "eligible_for_v23_common_reuse": {"type": "boolean"},
+        "resolution": {"$ref": "#/$defs/pair"},
+        "fps": {"type": "number", "exclusiveMinimum": 0},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

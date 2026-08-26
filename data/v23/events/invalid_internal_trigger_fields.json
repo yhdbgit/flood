@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "event_type": "flood_guidance_requested",
+  "event_id": "FLOOD-2026-08-27-OSONG-INVALID",
+  "user_id": "USER-DEMO-001",
+  "field_id": "OSONG-FIELD-DEMO-001",
+  "scenario_id": "caution",
+  "triggered_at": "2026-08-26T06:00:00+09:00",
+  "requested_at": "2026-08-26T06:00:02+09:00",
+  "source": {"system_id": "team-trigger-service"},
+  "forecast_summary": {"rain_24h_mm": 80},
+  "should_generate_video": true,
+  "rain_threshold_mm": 80,
+  "cooldown_hours": 48
+}
